@@ -7,6 +7,42 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+        android:layout_height="512dp"></android.support.v4.view.ViewPager>
+
+    <LinearLayout
+        android:id="@+id/dots"
+        android:layout_width="41dp"
+        android:layout_height="55dp"
+        android:layout_below="@+id/join"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"></LinearLayout>
+
+    <Button
+        android:id="@+id/join"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/pager"
+        android:layout_marginLeft="57dp"
+        android:layout_marginStart="57dp"
+        android:background="@color/colorPrimaryDark"
+        android:onClick="launchsignup"
+        android:text="Join"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/pager"
+        android:layout_marginEnd="57dp"
+        android:layout_marginRight="57dp"
+        android:background="@color/colorAccent"
+        android:onClick="launchlogin"
+        android:text="Login"
+        android:visibility="invisible" />
 
 </RelativeLayout>

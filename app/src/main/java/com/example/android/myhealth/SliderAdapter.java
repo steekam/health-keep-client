@@ -26,7 +26,7 @@ public class SliderAdapter extends PagerAdapter {
     };
 
     public String[] slide_headings = {
-            "Health Keep",
+            "Welcome to Health Keep!",
             "Appointment Tracker",
             "Doctor Chat",
     };
@@ -35,12 +35,6 @@ public class SliderAdapter extends PagerAdapter {
             "Your personal health reminder",
             "We help you remember",
             "Keep in touch with your Doctors",
-    };
-
-    public int[] slide_dots = {
-            R.drawable.first,
-            R.drawable.second,
-            R.drawable.third,
     };
 
     @Override
@@ -61,12 +55,10 @@ public class SliderAdapter extends PagerAdapter {
         ImageView slideImageView = (ImageView)view.findViewById(R.id.image);
         TextView slideheading = (TextView)view.findViewById(R.id.healthkeep);
         TextView slideDesc = (TextView)view.findViewById(R.id.healthkeep2);
-        ImageView slideDots = (ImageView)view.findViewById(R.id.imageView);
 
         slideImageView.setImageResource(slide_images[position]);
         slideheading.setText(slide_headings[position]);
         slideDesc.setText(slide_desc[position]);
-        slideDots.setImageResource(slide_dots[position]);
 
         container.addView(view);
 
