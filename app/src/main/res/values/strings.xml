@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Health Keep</string>
+    <string name="health_keep">Health Keep</string>
+    <string name="reminder">Your personal health reminder</string>
+    <string name="appointment_tracker">Appointment Tracker</string>
+    <string name="remember">We help you remember</string>
+    <string name="doctor_chat">Doctor Chat</string>
+    <string name="doctors">Keep in touch with your Doctors</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="email">Email Address</string>
+    <string name="password">Password</string>
+</resources>
