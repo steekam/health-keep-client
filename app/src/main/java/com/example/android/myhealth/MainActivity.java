@@ -7,6 +7,8 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +18,9 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends FragmentActivity {
     ViewPager pager;
     SliderAdapter sliderAdapter;
@@ -24,6 +29,7 @@ public class MainActivity extends FragmentActivity {
     private Button join;
     private Button login;
     private int mCurrentPage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
