@@ -14,12 +14,13 @@ import java.util.List;
 
 public class RecyclerActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private RecyclerAdapter adapter;
+    private RecyclerView.Adapter adapter;
     private List<ListItem> listItems;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.recycler);
 
         recyclerView = (RecyclerView) findViewById(R.id.Recyclerview);
         recyclerView.setHasFixedSize(true);
@@ -29,7 +30,7 @@ public class RecyclerActivity extends AppCompatActivity {
 
         for(int i=0;i<=5;i++){
             ListItem listItem = new ListItem(
-                    "heading" + i+1,
+                    "heading " + (i+1),
                     "Lorem Ipsum"
             );
 
