@@ -3,8 +3,17 @@
     <color name="colorPrimary">#006B95</color>
     <color name="colorPrimaryDark">#006B95</color>
     <color name="colorAccent">#F4816A</color>
+
     <color name="blue">#2BC4FF</color>
-    <color name="grey">#F4F4F4</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="grey">#f4f4f4</color>
+    <color name="charcoalGrey">#36454f</color>
+    <color name="red">#d9534f</color>
+    <color name="red_transparent">#2cfa365c</color>
+    <color name="transparent">#00ffffff</color>
+    <color name="dark_grey">#2b3338</color>
+    <color name="light_grey">#a6a6a6</color>
+    <color name="silver">#f4f5f6</color>
+    <color name="silver_dark">#dee1e4</color>
 </resources>

@@ -1,0 +1,5 @@
+<resources>
+    <declare-styleable name="EditTextErrorState">
+        <attr name="state_error" format="boolean"/>
+    </declare-styleable>
+</resources>
