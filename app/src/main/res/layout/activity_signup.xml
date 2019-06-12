@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/AppTheme.NoActionBar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".signup">
+    tools:context=".ui.auth.SignUpActivity">
 
     <ImageView
         android:id="@+id/healthlight"
@@ -27,13 +26,13 @@
         android:layout_marginTop="8dp"
         android:text="@string/sign_up_activity_title"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/email"
+        app:layout_constraintBottom_toTopOf="@+id/signUpEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/healthlight" />
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/signUpEmail"
         style="@style/textField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -43,16 +42,16 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
         android:background="@color/grey"
-        android:hint="@string/promt_email"
+        android:hint="@string/prompt_email"
         android:inputType="textEmailAddress"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/username"
+        app:layout_constraintBottom_toTopOf="@+id/signUpUsername"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/login" />
 
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/signUpUsername"
         style="@style/textField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -62,12 +61,12 @@
         android:background="@color/grey"
         android:hint="@string/prompt_username"
         android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/password"
+        app:layout_constraintBottom_toTopOf="@+id/signUpPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/signUpPassword"
         style="@style/textField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -79,11 +78,10 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
+        app:layout_constraintTop_toBottomOf="@+id/signUpUsername" />
 
     <RadioGroup
         android:id="@+id/radioClientType"
-        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -92,13 +90,14 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/btnSignup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password">
+        app:layout_constraintTop_toBottomOf="@+id/signUpPassword">
 
         <RadioButton
-            android:id="@+id/doctor"
+            android:id="@+id/doctorOption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -108,12 +107,12 @@
             android:layout_marginRight="8dp"
             android:text="@string/doctor"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toStartOf="@+id/patient"
+            app:layout_constraintEnd_toStartOf="@+id/patientOption"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password" />
+            app:layout_constraintTop_toBottomOf="@+id/signUpPassword" />
 
         <RadioButton
-            android:id="@+id/patient"
+            android:id="@+id/patientOption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -124,12 +123,13 @@
             android:text="@string/patient"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/doctor"
-            app:layout_constraintTop_toBottomOf="@+id/password" />
+            app:layout_constraintStart_toEndOf="@+id/doctorOption"
+            app:layout_constraintTop_toBottomOf="@+id/signUpPassword" />
     </RadioGroup>
 
     <Button
         android:id="@+id/btnSignup"
+        style="@style/TextAppearance.MaterialComponents.Button"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginStart="16dp"
@@ -141,7 +141,7 @@
         android:background="@color/colorPrimary"
         android:text="@string/sign_up_activity_title"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:onClick="createAccount"
         app:layout_constraintBottom_toTopOf="@+id/alreadyHaveAccount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -149,7 +149,7 @@
         app:layout_constraintTop_toBottomOf="@+id/radioClientType" />
 
 
-    <android.support.constraint.Guideline
+    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -158,33 +158,38 @@
 
     <TextView
         android:id="@+id/alreadyHaveAccount"
+        style='@style/TextAppearance.MaterialComponents.Subtitle1'
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginLeft="84dp"
         android:layout_marginTop="16dp"
         android:text="@string/have_account"
+        app:layout_constraintEnd_toStartOf="@+id/sign_in_link"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnSignup" />
 
     <TextView
         android:id="@+id/sign_in_link"
+        style='@style/TextAppearance.MaterialComponents.Subtitle1'
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginLeft="2dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
         android:onClick="launchlogin"
         android:text="@string/sign_in_text"
         android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/alreadyHaveAccount"
         app:layout_constraintTop_toBottomOf="@+id/btnSignup" />
 
-    <android.support.constraint.Guideline
+    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.65" />
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

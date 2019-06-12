@@ -1,11 +1,14 @@
-package com.example.android.myhealth;
+package com.example.android.myhealth.ui.auth;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-public class login extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.android.myhealth.R;
+
+public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,7 +17,8 @@ public class login extends AppCompatActivity {
     }
 
     public void launchsignup(View view){
-        Intent intent = new Intent(login.this, signup.class);
+        Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
     }
 }

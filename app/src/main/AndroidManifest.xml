@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.android.myhealth">
 
     <!--Allow internet connectivity-->
@@ -14,8 +15,8 @@
         <activity
             android:name=".NavDrawer"
             android:label="@string/title_activity_nav_drawer"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".MainActivity">
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.onboarding.OnboardingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -23,8 +24,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".login" />
-        <activity android:name=".signup" />
+        <activity
+            android:parentActivityName=".ui.onboarding.OnboardingActivity"
+            android:screenOrientation="portrait"
+            android:name=".ui.auth.LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:parentActivityName=".ui.onboarding.OnboardingActivity"
+            android:screenOrientation="portrait"
+            android:name=".ui.auth.SignUpActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".RecyclerActivity" />
     </application>
 
