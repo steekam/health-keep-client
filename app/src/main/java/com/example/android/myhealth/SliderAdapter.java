@@ -1,72 +1,68 @@
 package com.example.android.myhealth;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.support.v4.view.PagerAdapter;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.viewpager.widget.PagerAdapter;
+
 public class SliderAdapter extends PagerAdapter {
-    Context context;
-    LayoutInflater layoutInflater;
+	public int[] slide_images = {
+			R.drawable.health,
+			R.drawable.appointment,
+			R.drawable.doctor,
+	};
+	public String[] slide_headings = {
+			"Welcome to Health Keep!",
+			"Appointment Tracker",
+			"Doctor Chat",
+	};
+	public String[] slide_desc = {
+			"Your personal health reminder",
+			"We help you remember",
+			"Keep in touch with your Doctors",
+	};
+	Context context;
+	LayoutInflater layoutInflater;
 
-    public SliderAdapter(Context context){
-        this.context = context;
-    }
+	public SliderAdapter(Context context) {
+		this.context = context;
+	}
 
-    public int[] slide_images = {
-            R.drawable.health,
-            R.drawable.appointment,
-            R.drawable.doctor,
-    };
+	@Override
+	public int getCount() {
+		return slide_headings.length;
+	}
 
-    public String[] slide_headings = {
-            "Welcome to Health Keep!",
-            "Appointment Tracker",
-            "Doctor Chat",
-    };
+	@Override
+	public boolean isViewFromObject(View view, Object o) {
+		return view == o;
+	}
 
-    public String[] slide_desc = {
-            "Your personal health reminder",
-            "We help you remember",
-            "Keep in touch with your Doctors",
-    };
+	@Override
+	public Object instantiateItem(ViewGroup container, int position) {
+		layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View view = layoutInflater.inflate(R.layout.slide_layout, container, false);
 
-    @Override
-    public int getCount() {
-        return slide_headings.length;
-    }
+		ImageView slideImageView = view.findViewById(R.id.image);
+		TextView slideheading = view.findViewById(R.id.healthkeep);
+		TextView slideDesc = view.findViewById(R.id.healthkeep2);
 
-    @Override
-    public boolean isViewFromObject(View view, Object o) {
-        return view == (RelativeLayout) o;
-    }
+		slideImageView.setImageResource(slide_images[position]);
+		slideheading.setText(slide_headings[position]);
+		slideDesc.setText(slide_desc[position]);
 
-    @Override
-    public Object instantiateItem(ViewGroup container, int position) {
-        layoutInflater = (LayoutInflater)context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-        View view = layoutInflater.inflate(R.layout.slide_layout,container,false);
+		container.addView(view);
 
-        ImageView slideImageView = (ImageView)view.findViewById(R.id.image);
-        TextView slideheading = (TextView)view.findViewById(R.id.healthkeep);
-        TextView slideDesc = (TextView)view.findViewById(R.id.healthkeep2);
+		return view;
+	}
 
-        slideImageView.setImageResource(slide_images[position]);
-        slideheading.setText(slide_headings[position]);
-        slideDesc.setText(slide_desc[position]);
-
-        container.addView(view);
-
-        return view;
-    };
-
-    @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView((RelativeLayout)object);
-    }
+	@Override
+	public void destroyItem(ViewGroup container, int position, Object object) {
+		container.removeView((RelativeLayout) object);
+	}
 }

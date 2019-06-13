@@ -25,4 +25,18 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+    <string name="prompt_username">Username</string>
+    <string name="prompt_password">Password</string>
+    <string name="doctor">Doctor</string>
+    <string name="patient">Patient</string>
+    <string name="sign_up_activity_title">Sign up</string>
+    <string name="signuo_loading_text">Signing in...</string>
+    <string name="have_account">Already have an account?</string>
+    <string name="sign_in_text">Sign in</string>
+    <string name="prompt_email">Email</string>
+    <string name="signin_activity_title">Sign in</string>
+    <string name="forgot_password_prompt">Forgot password?</string>
+    <string name="no_account">Don\'t have an account?</string>
+    <string name="signup_error">Error in creating account</string>
+    <string name="signup_email_error">Invalid email provided</string>
 </resources>

@@ -34,6 +34,7 @@
     <EditText
         android:id="@+id/signUpEmail"
         style="@style/textField"
+        android:importantForAutofill="no"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/login"
@@ -53,6 +54,7 @@
     <EditText
         android:id="@+id/signUpUsername"
         style="@style/textField"
+        android:importantForAutofill="no"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -68,11 +70,11 @@
     <EditText
         android:id="@+id/signUpPassword"
         style="@style/textField"
+        android:importantForAutofill="no"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:background="@color/grey"
         android:hint="@string/prompt_password"
         android:inputType="textPassword"
