@@ -1,5 +1,7 @@
 package com.example.android.myhealth.models;
 
+import androidx.annotation.Nullable;
+
 import com.google.auto.value.AutoValue;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
@@ -12,10 +14,15 @@ public abstract class Client {
     @SerializedName("client_id")
     public abstract long clientId();
 
+    @Nullable
     public abstract  String username();
 
     public abstract  String email();
 
+    @Nullable
+    public abstract String password();
+
+    @Nullable
     @SerializedName("email_verified_at")
     public abstract String emailVerifiedAt();
 

@@ -37,4 +37,6 @@
     <string name="signin_activity_title">Sign in</string>
     <string name="forgot_password_prompt">Forgot password?</string>
     <string name="no_account">Don\'t have an account?</string>
+    <string name="signup_error">Error in creating account</string>
+    <string name="signup_email_error">Invalid email provided</string>
 </resources>

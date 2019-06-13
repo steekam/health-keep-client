@@ -8,24 +8,24 @@ import com.example.android.myhealth.network.services.ClientService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.io.IOException;
-
 import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
-	private final static String BASEURL = "http://health-keep-server.herokuapp.com/api/v1/";
+//	private final static String BASEURL = "http://health-keep-server.herokuapp.com/api/v1/";
+	private  final static  String BASEURL = "https://1a8d90ba.ngrok.io/api/v1/";
 	private static RetrofitClient INSTANCE;
 	private Retrofit client;
 	private ClientService clientService;
 
 	RetrofitClient(Context context) {
 		this.client = provideRetrofitClient(context);
+		clientService = client.create(ClientService.class);
 	}
 
 	public static synchronized RetrofitClient getInstance(Context context) {
@@ -47,6 +47,7 @@ public class RetrofitClient {
 		return new Retrofit.Builder()
 				.baseUrl(BASEURL)
 				.client(provideHTTPClient(context))
+				.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 				.addConverterFactory(GsonConverterFactory.create(provideGson()))
 				.build();
 	}
@@ -59,14 +60,11 @@ public class RetrofitClient {
 	}
 
 	private Interceptor provideApiKeyInterceptor() {
-		return new Interceptor() {
-			@Override
-			public Response intercept(Chain chain) throws IOException {
-				Request newRequest = chain.request().newBuilder()
-						.addHeader("Authorization", "Bearer " + BuildConfig.HealthKeepApiKey)
-						.build();
-				return chain.proceed(newRequest);
-			}
+		return chain -> {
+			Request newRequest = chain.request().newBuilder()
+					.addHeader("Authorization", "Bearer " + BuildConfig.HealthKeepApiKey)
+					.build();
+			return chain.proceed(newRequest);
 		};
 	}
 
