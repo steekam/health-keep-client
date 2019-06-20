@@ -14,8 +14,8 @@
     <string name="title_activity_nav_drawer">NavDrawer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_username">Username</string>
+    <string name="nav_header_email_address">Email Address</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
@@ -39,4 +39,17 @@
     <string name="no_account">Don\'t have an account?</string>
     <string name="signup_error">Error in creating account</string>
     <string name="signup_email_error">Invalid email provided</string>
+    <string name="title_activity_patient_dashboard">My Dashboard</string>
+    <string name="appointments">Appointments</string>
+    <string name="prescriptions">Prescriptions</string>
+    <string name="chat">Chat</string>
+    <string name="personal">Personal</string>
+    <string name="account">Account</string>
+    <string name="logout">Logout</string>
+    <string name="title_activity_patient_appointments">My Appointments</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="upcoming_appointments">Upcoming Appointments</string>
+    <string name="title_activity_patient_prescriptions">My Prescriptions</string>
+    <string name="title_activity_patient_account">My Account</string>
 </resources>
