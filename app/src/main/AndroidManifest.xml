@@ -12,21 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.patient.PatientAccountActivity"
-            android:label="@string/title_activity_patient_account"
+            android:name=".ui.doctors.doctor_nav"
+            android:label="@string/title_activity_doctor_nav"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".ui.patient.PatientPrescriptionsActivity"
-            android:label="@string/title_activity_patient_prescriptions"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ui.patient.PatientAppointmentsActivity"
-            android:label="@string/title_activity_patient_appointments"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ui.patient.PatientDashboardActivity"
-            android:label="@string/title_activity_patient_dashboard"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".NavDrawer"
             android:label="@string/title_activity_nav_drawer"
@@ -35,6 +23,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

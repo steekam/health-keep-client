@@ -1,10 +1,8 @@
-package com.example.android.myhealth.ui.patient;
+package com.example.android.myhealth.ui.doctors;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.android.myhealth.R;
-import com.example.android.myhealth.ui.auth.LoginActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -24,13 +22,13 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 
-public class PatientAccountActivity extends AppCompatActivity
+public class doctor_nav extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_patient_account);
+        setContentView(R.layout.activity_doctor_nav);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -63,7 +61,7 @@ public class PatientAccountActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.patient_account, menu);
+        getMenuInflater().inflate(R.menu.doctor_nav, menu);
         return true;
     }
 
@@ -88,29 +86,19 @@ public class PatientAccountActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_appointments) {
-            Intent intent = new Intent(PatientAccountActivity.this, PatientAppointmentsActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-            startActivity(intent);
-        } else if (id == R.id.nav_prescriptions) {
-            Intent intent = new Intent(PatientAccountActivity.this, PatientPrescriptionsActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-            startActivity(intent);
-        } else if (id == R.id.nav_chat) {
-            Intent intent = new Intent(PatientAccountActivity.this, PatientDashboardActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-            startActivity(intent);
-        } else if (id == R.id.nav_account) {
-            Intent intent = new Intent(PatientAccountActivity.this, PatientAccountActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-            startActivity(intent);
+        if (id == R.id.nav_home) {
+            // Handle the camera action
+        } else if (id == R.id.nav_gallery) {
 
-        } else if (id == R.id.nav_logout) {
-            Intent intent = new Intent(PatientAccountActivity.this, LoginActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-            startActivity(intent);
+        } else if (id == R.id.nav_slideshow) {
+
+        } else if (id == R.id.nav_tools) {
+
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_send) {
+
         }
-
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
