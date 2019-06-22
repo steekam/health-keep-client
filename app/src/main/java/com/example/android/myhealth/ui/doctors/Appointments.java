@@ -11,11 +11,11 @@ import androidx.fragment.app.Fragment;
 
 import com.example.android.myhealth.R;
 
-public class Account extends Fragment {
+public class Appointments extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.doctor_account, container,false);
+        return inflater.inflate(R.layout.doctor_appointments, container,false);
     }
 }

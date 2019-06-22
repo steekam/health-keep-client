@@ -140,7 +140,7 @@ public class SignUpActivity extends AppCompatActivity {
 
 	public void createAccount(View view) {
 		ProcessDialog = new ProgressDialog(SignUpActivity.this);
-		ProcessDialog.setMessage("Creating account...");
+		ProcessDialog.setMessage("Creating doctor_account...");
 		ProcessDialog.show();
 		String clientEmail = mEmailInput.getText().toString();
 		String clientUsername = mUsernameInput.getText().toString();

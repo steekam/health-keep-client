@@ -33,7 +33,7 @@ public class SignUpViewModel extends ViewModel {
 
 	Consumer<Throwable> onError() {
 		return throwable -> {
-			Timber.e(throwable, "Error creating account");
+			Timber.e(throwable, "Error creating doctor_account");
 			errorRelay.accept(R.string.signup_error);
 		};
 	}

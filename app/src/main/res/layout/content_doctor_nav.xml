@@ -9,14 +9,8 @@
     tools:showIn="@layout/app_bar_doctor_nav">
 
     <FrameLayout
-        android:id="@+id/content_frame"
+        android:id="@+id/fragment_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Opening page which will should be recycler view for appointments"/>
-    </FrameLayout>
+        android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

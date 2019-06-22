@@ -12,6 +12,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.android.myhealth.ui.doctors.Account;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -80,10 +81,10 @@ public class NavDrawer extends AppCompatActivity
 		FragmentManager fragmentManager = getSupportFragmentManager();
 
 		if (id == R.id.account) {
-			fragmentManager.beginTransaction()
-					.replace(R.id.content_frame
-							, new Account())
-					.commit();
+//			fragmentManager.beginTransaction()
+//					.replace(R.id.content_frame
+//							, new Account())
+//					.commit();
 		} else if (id == R.id.nav_gallery) {
 
 		} else if (id == R.id.nav_slideshow) {

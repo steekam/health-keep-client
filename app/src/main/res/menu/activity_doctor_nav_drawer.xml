@@ -7,28 +7,28 @@
         <item
             android:id="@+id/appointments"
             android:icon="@drawable/ic_appointment"
-            android:title="Appointments" />
+            android:title="@string/appointments" />
         <item
             android:id="@+id/patients"
             android:icon="@drawable/ic_people"
-            android:title="Patients" />
+            android:title="@string/patients" />
         <item
             android:id="@+id/chat"
             android:icon="@drawable/ic_mail"
-            android:title="Chat" />
+            android:title="@string/chat" />
 
     </group>
 
-    <item android:title="Personal">
+    <item android:title="@string/personal">
         <menu>
             <item
                 android:id="@+id/account"
                 android:icon="@drawable/ic_user"
-                android:title="Account" />
+                android:title="@string/account" />
             <item
                 android:id="@+id/logout"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Logout" />
+                android:icon="@drawable/ic_arrow_back"
+                android:title="@string/logout" />
         </menu>
     </item>
 

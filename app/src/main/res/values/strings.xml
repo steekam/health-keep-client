@@ -53,4 +53,8 @@
     <string name="title_activity_patient_prescriptions">My Prescriptions</string>
     <string name="title_activity_patient_account">My Account</string>
     <string name="title_activity_doctor_nav">doctor_nav</string>
+    <string name="patients">Patients</string>
+    <string name="join">Join</string>
+    <string name="login">Login</string>
+
 </resources>
