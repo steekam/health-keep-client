@@ -2,30 +2,23 @@ package com.example.android.myhealth.ui.doctors;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.example.android.myhealth.R;
-import com.example.android.myhealth.ui.auth.LoginActivity;
-import com.example.android.myhealth.ui.onboarding.OnboardingActivity;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import android.view.View;
-
-import androidx.core.view.GravityCompat;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-
+import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.android.material.navigation.NavigationView;
-
-import androidx.drawerlayout.widget.DrawerLayout;
-
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 
-import android.view.Menu;
+import com.example.android.myhealth.R;
+import com.example.android.myhealth.ui.doctors.mFragments.Account;
+import com.example.android.myhealth.ui.doctors.mFragments.Appointments;
+import com.example.android.myhealth.ui.doctors.mFragments.Chat;
+import com.example.android.myhealth.ui.doctors.mFragments.Patients;
+import com.example.android.myhealth.ui.onboarding.OnboardingActivity;
+import com.google.android.material.navigation.NavigationView;
 
 public class doctor_nav extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -49,7 +42,7 @@ public class doctor_nav extends AppCompatActivity
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_frame, new Appointments())
                     .commit();
-            navigationView.setCheckedItem(R.id.appointments);
+            navigationView.setCheckedItem(R.id.chat);
         }
     }
 
@@ -91,14 +84,9 @@ public class doctor_nav extends AppCompatActivity
         int id = item.getItemId();
         FragmentManager fragmentManager = getSupportFragmentManager();
 
-        if (id == R.id.appointments) {
+        if (id == R.id.patients) {
             fragmentManager.beginTransaction()
-                    .replace(R.id.fragment_frame, new Appointments())
-                    .commit();
-        } else if (id == R.id.patients) {
-            fragmentManager.beginTransaction()
-                    .replace(R.id.fragment_frame
-                            , new Patients())
+                    .replace(R.id.fragment_frame, new Patients())
                     .commit();
         } else if (id == R.id.chat) {
             fragmentManager.beginTransaction()

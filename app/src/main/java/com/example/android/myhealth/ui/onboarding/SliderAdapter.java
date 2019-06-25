@@ -1,4 +1,4 @@
-package com.example.android.myhealth;
+package com.example.android.myhealth.ui.onboarding;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.viewpager.widget.PagerAdapter;
+
+import com.example.android.myhealth.R;
 
 public class SliderAdapter extends PagerAdapter {
 	public int[] slide_images = {

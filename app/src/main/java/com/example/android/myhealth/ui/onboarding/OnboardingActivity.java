@@ -12,7 +12,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.android.myhealth.R;
-import com.example.android.myhealth.SliderAdapter;
 import com.example.android.myhealth.ui.auth.LoginActivity;
 import com.example.android.myhealth.ui.auth.SignUpActivity;
 

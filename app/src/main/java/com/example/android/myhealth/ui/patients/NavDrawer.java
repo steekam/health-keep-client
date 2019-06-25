@@ -1,4 +1,4 @@
-package com.example.android.myhealth;
+package com.example.android.myhealth.ui.patients;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,7 +12,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 
-import com.example.android.myhealth.ui.doctors.Account;
+import com.example.android.myhealth.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;

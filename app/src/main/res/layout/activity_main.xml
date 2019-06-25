@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blue"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:orientation="vertical">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/pager"
@@ -30,7 +29,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pager"/>
+        app:layout_constraintTop_toBottomOf="@+id/pager" />
 
     <Button
         android:id="@+id/join"
@@ -39,21 +38,16 @@
         android:layout_below="@+id/pager"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginStart="74dp"
-        android:layout_marginLeft="74dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="74dp"
-        android:layout_marginRight="74dp"
-        android:layout_marginBottom="199dp"
-        android:background="@color/colorPrimaryDark"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/btn_small"
         android:onClick="launchsignup"
         android:text="@string/join"
+        android:textColor="@color/white"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/login"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pager"
-        app:layout_constraintVertical_bias="0.268" />
+        app:layout_constraintTop_toBottomOf="@+id/pager" />
 
     <Button
         android:id="@+id/login"
@@ -62,20 +56,15 @@
         android:layout_below="@+id/pager"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginStart="74dp"
-        android:layout_marginLeft="74dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="74dp"
-        android:layout_marginRight="74dp"
-        android:layout_marginBottom="199dp"
-        android:background="@color/colorAccent"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/btn_small"
         android:onClick="launchlogin"
         android:text="@string/login"
+        android:textColor="@color/white"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/join"
-        app:layout_constraintTop_toBottomOf="@+id/pager"
-        app:layout_constraintVertical_bias="0.268" />
+        app:layout_constraintTop_toBottomOf="@+id/pager" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
