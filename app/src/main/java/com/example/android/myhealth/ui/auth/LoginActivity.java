@@ -8,7 +8,6 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.android.myhealth.R;
-import com.example.android.myhealth.ui.doctors.doctor_nav;
 
 public class LoginActivity extends AppCompatActivity {
 private Button Signin;
@@ -25,5 +24,11 @@ private Button Signin;
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
     }
+
+//    public void in(View view){
+//        Intent intent = new Intent(LoginActivity.this, doctor_nav.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+//        startActivity(intent);
+//    }
 
 }

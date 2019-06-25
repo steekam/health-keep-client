@@ -16,7 +16,7 @@
             android:label="@string/title_activity_doctor_nav"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".NavDrawer"
+            android:name=".ui.patients.NavDrawer"
             android:label="@string/title_activity_nav_drawer"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.onboarding.OnboardingActivity">
@@ -37,7 +37,10 @@
             android:parentActivityName=".ui.onboarding.OnboardingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".RecyclerActivity" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

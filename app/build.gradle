@@ -19,7 +19,21 @@ android {
     buildTypes.each {
         it.buildConfigField 'String', 'HealthKeepApiKey', HealthKeepApiKey
     }
-
+    buildscript {
+        repositories {
+            google()
+            jcenter()
+            maven { url 'https://maven.google.com' }
+            mavenCentral()
+        }
+    }
+    allprojects {
+        repositories {
+            google()
+            jcenter()
+            maven { url 'https://maven.google.com' }
+        }
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -33,6 +47,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$supportLibraryVersion"
     implementation "androidx.recyclerview:recyclerview:$supportLibraryVersion"
     implementation "com.google.android.material:material:$materialVersion"
+    implementation "androidx.cardview:cardview:1.0.0"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
 
     // Retrofit
@@ -66,7 +81,7 @@ dependencies {
     implementation "com.jakewharton:butterknife:$butterKnifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 
-    //Lifecyle with ViewModel and LiveData
+    //Lifecycle with ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
 
     //Timbre

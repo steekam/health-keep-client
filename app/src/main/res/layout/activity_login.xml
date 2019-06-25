@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.auth.LoginActivity">
 
     <ImageView
@@ -24,44 +25,64 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/simplehandwritting_regular"
         android:text="@string/signin_activity_title"
+        android:typeface="monospace"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/signUpUsername"
+        app:layout_constraintBottom_toTopOf="@+id/signInUsernameLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/healthlight" />
 
-    <EditText
-        android:id="@+id/signUpUsername"
-        style="@style/textField"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/signInUsernameLayout"
+        style="@style/MyDenseTextLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
-        android:background="@color/grey"
-        android:hint="@string/prompt_username"
-        android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/signUpPassword"
+        android:hint="Username"
+        app:endIconDrawable="@drawable/ic_user"
+        app:endIconMode="custom"
+        app:layout_constraintBottom_toTopOf="@+id/signInPasswordLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/signup" />
+        app:layout_constraintTop_toBottomOf="@+id/signup"
+        tools:layout_editor_absoluteX="43dp"
+        tools:layout_editor_absoluteY="222dp">
 
-    <EditText
-        android:id="@+id/signUpPassword"
-        style="@style/textField"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/signInUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/signInPasswordLayout"
+        style="@style/MyDenseTextLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:background="@color/grey"
-        android:hint="@string/prompt_password"
-        android:inputType="textPassword"
+        android:layout_marginBottom="8dp"
+        android:hint="Password"
+        app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/signUpUsername" />
+        app:layout_constraintTop_toBottomOf="@+id/signInUsernameLayout"
+        tools:layout_editor_absoluteX="27dp"
+        tools:layout_editor_absoluteY="267dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/signInPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/forgotPassword"
@@ -73,7 +94,7 @@
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signUpPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/signInPasswordLayout" />
 
     <Button
         android:id="@+id/btnSignin"
