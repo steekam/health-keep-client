@@ -16,9 +16,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    buildTypes.each {
-        it.buildConfigField 'String', 'HealthKeepApiKey', HealthKeepApiKey
-    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -48,6 +45,15 @@ dependencies {
 
     //Lifecyle with ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
+
+    // Repository
+    implementation project(":repository")
+
+    //Authentication
+    implementation project(":authentication")
+
+    //Stetho
+    implementation "com.facebook.stetho:stetho:$stethoVersion"
 
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test:runner:$testRunnerVersion"
