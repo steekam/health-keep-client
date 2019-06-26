@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.doctors.doctor_nav"
+            android:name=".ui.doctors.DoctorNav"
             android:label="@string/title_activity_doctor_nav"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity

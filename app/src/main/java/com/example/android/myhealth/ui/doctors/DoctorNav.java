@@ -19,7 +19,7 @@ import com.example.android.myhealth.ui.doctors.mFragments.Patients;
 import com.example.android.myhealth.ui.onboarding.OnboardingActivity;
 import com.google.android.material.navigation.NavigationView;
 
-public class doctor_nav extends AppCompatActivity
+public class DoctorNav extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
@@ -98,7 +98,7 @@ public class doctor_nav extends AppCompatActivity
                             , new Account())
                     .commit();
         } else if (id == R.id.logout) {
-            Intent intent = new Intent(doctor_nav.this, OnboardingActivity.class);
+            Intent intent = new Intent(DoctorNav.this, OnboardingActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
             startActivity(intent);
         }

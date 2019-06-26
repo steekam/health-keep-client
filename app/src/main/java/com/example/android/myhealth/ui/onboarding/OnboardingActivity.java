@@ -22,7 +22,6 @@ public class OnboardingActivity extends FragmentActivity {
 	private TextView[] mdots;
 	private Button join;
 	private Button login;
-	private int mCurrentPage;
 
 
 	@Override
@@ -44,24 +43,6 @@ public class OnboardingActivity extends FragmentActivity {
 		login = findViewById(R.id.login);
 	}
 
-	public void addDotsIndicator(int position){
-		mdots = new TextView[3];
-		mDotLayout.removeAllViews();
-
-		for(int i=0; i<mdots.length; i++){
-			mdots[i] = new TextView(this);
-			mdots[i].setText(Html.fromHtml("&#8226;"));
-			mdots[i].setTextSize(35);
-			mdots[i].setTextColor(getResources().getColor(R.color.white));
-
-			mDotLayout.addView(mdots[i]);
-		}
-
-		if(mdots.length > 0){
-			mdots[position].setTextColor(getResources().getColor(R.color.colorAccent));
-		}
-	}
-
 	ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
 		@Override
 		public void onPageScrolled(int i, float v, int i1) {
@@ -71,21 +52,9 @@ public class OnboardingActivity extends FragmentActivity {
 		@Override
 		public void onPageSelected(int i) {
 			addDotsIndicator(i);
-
-			mCurrentPage = i;
-
-			if(i==0){
-				join.setVisibility(View.INVISIBLE);
-				login.setVisibility(View.INVISIBLE);
-			}
-			else if(i==mdots.length -1){
-				join.setVisibility(View.VISIBLE);
-				login.setVisibility(View.VISIBLE);
-			}
-			else{
-				join.setVisibility(View.INVISIBLE);
-				login.setVisibility(View.INVISIBLE);
-			}
+			int showButtons = (i == mdots.length - 1) ? View.VISIBLE : View.INVISIBLE;
+			join.setVisibility(showButtons);
+			login.setVisibility(showButtons);
 		}
 
 		@Override
@@ -93,6 +62,24 @@ public class OnboardingActivity extends FragmentActivity {
 
 		}
 	};
+
+	public void addDotsIndicator(int position) {
+		mdots = new TextView[3];
+		mDotLayout.removeAllViews();
+
+		for (int i = 0; i < mdots.length; i++) {
+			mdots[i] = new TextView(this);
+			mdots[i].setText(Html.fromHtml("&#8226;"));
+			mdots[i].setTextSize(35);
+			mdots[i].setTextColor(getResources().getColor(R.color.white));
+
+			mDotLayout.addView(mdots[i]);
+		}
+
+		if (mdots.length > 0) {
+			mdots[position].setTextColor(getResources().getColor(R.color.colorAccent));
+		}
+	}
 
 	public void launchlogin(View view){
 		Intent intent = new Intent(OnboardingActivity.this, LoginActivity.class);
