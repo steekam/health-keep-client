@@ -21,10 +21,12 @@
 
     <item android:title="@string/personal">
         <menu>
+
             <item
                 android:id="@+id/account"
                 android:icon="@drawable/ic_user"
                 android:title="@string/account" />
+
             <item
                 android:id="@+id/logout"
                 android:icon="@drawable/ic_arrow_back"

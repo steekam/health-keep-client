@@ -56,5 +56,6 @@
     <string name="patients">Patients</string>
     <string name="join">Join</string>
     <string name="login">Login</string>
+    <string name="edit">Edit</string>
 
 </resources>

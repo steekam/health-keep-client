@@ -14,7 +14,6 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.android.myhealth.R;
 import com.example.android.myhealth.ui.doctors.mFragments.Account;
-import com.example.android.myhealth.ui.doctors.mFragments.Appointments;
 import com.example.android.myhealth.ui.doctors.mFragments.Chat;
 import com.example.android.myhealth.ui.doctors.mFragments.Patients;
 import com.example.android.myhealth.ui.onboarding.OnboardingActivity;
@@ -40,7 +39,7 @@ public class doctor_nav extends AppCompatActivity
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_frame, new Appointments())
+                    .replace(R.id.fragment_frame, new Patients())
                     .commit();
             navigationView.setCheckedItem(R.id.chat);
         }

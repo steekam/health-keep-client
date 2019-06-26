@@ -25,10 +25,4 @@ private Button Signin;
         startActivity(intent);
     }
 
-//    public void in(View view){
-//        Intent intent = new Intent(LoginActivity.this, doctor_nav.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-//        startActivity(intent);
-//    }
-
 }
