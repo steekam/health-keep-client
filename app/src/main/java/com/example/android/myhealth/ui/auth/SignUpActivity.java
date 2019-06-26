@@ -15,20 +15,20 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.android.myhealth.BuildConfig;
 import com.example.android.myhealth.R;
-import com.example.android.myhealth.models.Client;
-import com.example.android.myhealth.network.RetrofitClient;
+import com.google.android.material.textfield.TextInputLayout;
 import com.jakewharton.rxbinding3.widget.RxRadioGroup;
 import com.jakewharton.rxbinding3.widget.RxTextView;
+import com.steekam.authentication.CreateAccount;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-import retrofit2.Response;
+import okhttp3.ResponseBody;
+import retrofit2.HttpException;
 import timber.log.Timber;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -36,20 +36,23 @@ public class SignUpActivity extends AppCompatActivity {
 
 	ProgressDialog ProcessDialog;
 
+	// Views
 	@BindView(R.id.signUpUsername)
 	EditText mUsernameInput;
+	@BindView(R.id.signUpUsernameLayout)
+	TextInputLayout mUsernameLayout;
 	@BindView(R.id.signUpEmail)
 	EditText mEmailInput;
+	@BindView(R.id.signUpEmailLayout)
+	TextInputLayout mEmailLayout;
 	@BindView(R.id.signUpPassword)
 	EditText mPasswordInput;
+	@BindView(R.id.signUpPasswordLayout)
+	TextInputLayout mPasswordLayout;
 	@BindView(R.id.radioClientType)
 	RadioGroup mClientType;
 	@BindView(R.id.btnSignup)
 	Button mBtnSignup;
-
-	private SignUpViewModel signupViewModel;
-	private Disposable combinedObservable;
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +70,7 @@ public class SignUpActivity extends AppCompatActivity {
 		ButterKnife.bind(this);
 
 		// associate viewmodel
-		signupViewModel = ViewModelProviders.of(this).get(SignUpViewModel.class);
+		SignUpViewModel signupViewModel = ViewModelProviders.of(this).get(SignUpViewModel.class);
 
 		//Observables
 		Observable<Boolean> emailObservable = RxTextView.textChanges(mEmailInput).skip(1).map(signupViewModel::isEmailValid);
@@ -75,7 +78,7 @@ public class SignUpActivity extends AppCompatActivity {
 		Observable<Boolean> usernameObservable = RxTextView.textChanges(mUsernameInput).skip(1).map(signupViewModel::isUsernameValid);
 		Observable<Integer> clientTypeObservable = RxRadioGroup.checkedChanges(mClientType);
 
-		combinedObservable = Observable.combineLatest(emailObservable, passwordObservable,
+		Disposable combinedObservable = Observable.combineLatest(emailObservable, passwordObservable,
 				usernameObservable, clientTypeObservable,
 				(emailisValid, passwordisValid, usernameIsValid, clientType) ->
 						validateEmail(emailisValid) && validatePassword(passwordisValid)
@@ -87,29 +90,20 @@ public class SignUpActivity extends AppCompatActivity {
 	}
 
 	Boolean validateEmail(Boolean isValid) {
-		if (!isValid) {
-			mEmailInput.setError("Invalid email");
-		} else {
-			mEmailInput.setError(null);
-		}
+		mEmailLayout.setError(isValid ? null : "Invalid email");
+		mEmailLayout.setErrorEnabled(!isValid);
 		return isValid;
 	}
 
 	Boolean validatePassword(Boolean isValid) {
-		if (!isValid) {
-			mPasswordInput.setError("At least 8 characters and one digit");
-		} else {
-			mPasswordInput.setError(null);
-		}
+		mPasswordLayout.setError(isValid ? null : "At least 8 characters and one digit");
+		mPasswordLayout.setErrorEnabled(!isValid);
 		return isValid;
 	}
 
 	Boolean validateUsername(Boolean isValid) {
-		if (!isValid) {
-			mUsernameInput.setError("Required");
-		} else {
-			mUsernameInput.setError(null);
-		}
+		mUsernameLayout.setError(isValid ? null : "Username is required");
+		mUsernameLayout.setErrorEnabled(!isValid);
 		return isValid;
 	}
 
@@ -140,7 +134,7 @@ public class SignUpActivity extends AppCompatActivity {
 
 	public void createAccount(View view) {
 		ProcessDialog = new ProgressDialog(SignUpActivity.this);
-		ProcessDialog.setMessage("Creating doctor_account...");
+		ProcessDialog.setMessage("Creating account...");
 		ProcessDialog.show();
 		String clientEmail = mEmailInput.getText().toString();
 		String clientUsername = mUsernameInput.getText().toString();
@@ -148,41 +142,26 @@ public class SignUpActivity extends AppCompatActivity {
 		RadioButton clientRadioButton = findViewById(mClientType.getCheckedRadioButtonId());
 		String clientRole = clientRadioButton.getText().toString().toLowerCase();
 
-		RetrofitClient.getInstance(this)
-				.getClientService().registerClient(clientUsername, clientEmail, clientPassword, clientRole)
-				.subscribeOn(Schedulers.io())
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(new Observer<Response<Client>>() {
-					@Override
-					public void onSubscribe(Disposable d) {
-//						disposables.add(d);
-					}
+		CreateAccount createAccount = new CreateAccount(this);
 
-					@Override
-					public void onNext(Response<Client> clientResponse) {
-						Toast.makeText(SignUpActivity.this, clientResponse.code(), Toast.LENGTH_SHORT).show();
-						if (clientResponse.isSuccessful()) {
-							assert clientResponse.body() != null;
-							Timber.d(clientResponse.body().toString());
-							Timber.d(clientResponse.message());
-							Toast.makeText(SignUpActivity.this, clientResponse.body().username(), Toast.LENGTH_LONG).show();
-						} else {
-							assert clientResponse.errorBody() != null;
-							Timber.d(clientResponse.errorBody().toString());
-							Toast.makeText(SignUpActivity.this, clientResponse.code(), Toast.LENGTH_SHORT).show();
-						}
+		disposables.add(createAccount
+				.sendRequest(clientEmail, clientUsername, clientPassword, clientRole)
+				.subscribe(clientResponse -> {
+					ProcessDialog.dismiss();
+					if (clientResponse.isSuccessful()) {
+						//TODO: Handle success
+						Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
 					}
-
-					@Override
-					public void onError(Throwable e) {
-						Timber.e(e);
-						Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+				}, throwable -> {
+					ProcessDialog.dismiss();
+					//TODO: Finish errors
+					Toast.makeText(this, "An error occurred", Toast.LENGTH_SHORT).show();
+					if (throwable instanceof HttpException) {
+						ResponseBody responseBody = Objects.requireNonNull(((HttpException) throwable).response()).errorBody();
+						assert responseBody != null;
+						String errString = responseBody.string();
+						Toast.makeText(this, errString, Toast.LENGTH_LONG).show();
 					}
-
-					@Override
-					public void onComplete() {
-						ProcessDialog.dismiss();
-					}
-				});
+				}));
 	}
 }

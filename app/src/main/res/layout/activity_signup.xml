@@ -12,7 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/app_logo"
         app:layout_constraintBottom_toTopOf="@+id/login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +25,6 @@
         style="@style/TextAppearance.MaterialComponents.Headline5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="@string/sign_up_activity_title"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/signUpEmailLayout"
@@ -35,36 +35,39 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/signUpEmailLayout"
         style="@style/MyDenseTextLayout"
-        android:hint="Email"
-        app:endIconDrawable="@drawable/ic_mail"
-        app:endIconMode="custom"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
+        android:hint="@string/email_hint"
+        app:endIconDrawable="@drawable/ic_mail"
+        app:endIconMode="custom"
         app:layout_constraintBottom_toTopOf="@+id/signUpUsernameLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/login" >
+        app:layout_constraintTop_toBottomOf="@+id/login">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/signUpEmail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            tools:targetApi="o" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/signUpUsernameLayout"
         style="@style/MyDenseTextLayout"
-        android:layout_marginTop="8dp"
-        android:hint="Username"
-        app:endIconDrawable="@drawable/ic_user"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:endIconMode="custom"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="8dp"
+        android:hint="@string/username_hint"
+        app:endIconDrawable="@drawable/ic_user"
+        app:endIconMode="custom"
         app:layout_constraintBottom_toTopOf="@+id/signUpPasswordLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -73,7 +76,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/signUpUsername"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            tools:targetApi="o" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -83,20 +88,22 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="8dp"
-        android:hint="Password"
+        android:hint="@string/password_hint"
         app:endIconMode="password_toggle"
         app:layout_constraintBottom_toTopOf="@+id/radioClientType"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/signUpUsernameLayout" >
+        app:layout_constraintTop_toBottomOf="@+id/signUpUsernameLayout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/signUpPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword" />
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            tools:targetApi="o" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <RadioGroup
@@ -108,7 +115,6 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="8dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/btnSignup"
         app:layout_constraintEnd_toEndOf="parent"
@@ -124,6 +130,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
+            android:baselineAligned="false"
             android:text="@string/doctor"
             android:textColor="@color/black"
             app:layout_constraintEnd_toStartOf="@+id/patientOption"
@@ -139,6 +146,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
+            android:baselineAligned="false"
             android:text="@string/patient"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
@@ -149,8 +157,6 @@
     <Button
         android:id="@+id/btnSignup"
         style="@style/TextAppearance.MaterialComponents.Button"
-        android:background="@color/colorPrimary"
-        android:enabled="false"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginStart="16dp"
@@ -158,11 +164,11 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
+        android:background="@color/colorPrimary"
+        android:enabled="false"
+        android:onClick="createAccount"
         android:text="@string/sign_up_activity_title"
         android:textColor="@color/white"
-        android:onClick="createAccount"
-        app:layout_constraintBottom_toTopOf="@+id/alreadyHaveAccount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -181,8 +187,10 @@
         style='@style/TextAppearance.MaterialComponents.Subtitle1'
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="32dp"
         android:text="@string/have_account"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/sign_in_link"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
@@ -196,20 +204,15 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="32dp"
         android:onClick="launchlogin"
         android:text="@string/sign_in_text"
         android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/alreadyHaveAccount"
         app:layout_constraintTop_toBottomOf="@+id/btnSignup" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.65" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

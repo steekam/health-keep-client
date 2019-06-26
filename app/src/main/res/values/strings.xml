@@ -56,6 +56,10 @@
     <string name="join">Join</string>
     <string name="login">Login</string>
     <string name="edit">Edit</string>
+    <string name="app_logo">App logo</string>
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="email_hint">Email</string>
 
     <!--On-boarding slide adapter strings-->
     <string-array name="slide_headings">
