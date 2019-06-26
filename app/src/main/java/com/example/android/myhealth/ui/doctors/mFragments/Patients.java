@@ -16,12 +16,10 @@ import com.example.android.myhealth.ui.doctors.mRecycler.MyAdapter;
 
 public class Patients extends Fragment {
 
-    private static String[] appoint={"Jane Doe","John Doe","Meridith Grey","Melvin Grey","Gerald Butler","Katniss Everdine","Orange is the new black"};
-    private RecyclerView rv;
+    private static final String[] appoint = {"Jane Doe", "John Doe", "Meridith Grey", "Melvin Grey", "Gerald Butler", "Katniss Everdine", "Orange is the new black"};
 
     public static Patients newInstance(){
-        Patients patient = new Patients();
-        return patient;
+        return new Patients();
     }
 
     @Nullable
@@ -30,7 +28,7 @@ public class Patients extends Fragment {
         View rootView = inflater.inflate(R.layout.doctor_patients,null);
 
         //REFERENCE
-        rv = rootView.findViewById(R.id.rvpatient);
+        RecyclerView rv = rootView.findViewById(R.id.rvpatient);
 
         //LAYOUT MANAGER
         rv.setLayoutManager(new LinearLayoutManager((getActivity())));
@@ -41,6 +39,7 @@ public class Patients extends Fragment {
         return rootView;
     }
 
+    @NonNull
     public String toString(){
         return "patient";
     }

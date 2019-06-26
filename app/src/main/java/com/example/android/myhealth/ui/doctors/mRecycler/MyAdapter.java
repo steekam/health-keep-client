@@ -13,8 +13,8 @@ import com.example.android.myhealth.R;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.RecyclerViewHolder> {
 
-    Context context;
-    String[] appoint;
+    private final Context context;
+    private final String[] appoint;
 
     public MyAdapter(Context context, String[] appoint){
         this.context = context;
@@ -40,9 +40,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.RecyclerViewHolder
 
 
     public class RecyclerViewHolder extends RecyclerView.ViewHolder{
-        TextView nametext;
+        final TextView nametext;
 
-        public RecyclerViewHolder(View itemview){
+        RecyclerViewHolder(View itemview) {
             super(itemview);
             nametext = itemview.findViewById(R.id.nametext);
 

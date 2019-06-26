@@ -12,11 +12,11 @@ import androidx.viewpager.widget.PagerAdapter;
 
 import com.example.android.myhealth.R;
 
-public class SliderAdapter extends PagerAdapter {
-	private int[] slide_images;
-	private String[] slide_headings;
-	private String[] slide_desc;
-	private Context context;
+class SliderAdapter extends PagerAdapter {
+	private final int[] slide_images;
+	private final String[] slide_headings;
+	private final String[] slide_desc;
+	private final Context context;
 
 	SliderAdapter(Context context) {
 		this.context = context;

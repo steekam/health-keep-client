@@ -16,34 +16,13 @@ import com.example.android.myhealth.ui.auth.LoginActivity;
 import com.example.android.myhealth.ui.auth.SignUpActivity;
 
 public class OnboardingActivity extends FragmentActivity {
-	ViewPager pager;
-	SliderAdapter sliderAdapter;
 	private LinearLayout mDotLayout;
 	private TextView[] mdots;
 	private Button join;
 	private Button login;
 
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		pager = findViewById(R.id.pager);
-
-		sliderAdapter = new SliderAdapter(this);
-
-		pager.setAdapter(sliderAdapter);
-
-		mDotLayout = findViewById(R.id.dots);
-		addDotsIndicator(0);
-
-		pager.addOnPageChangeListener(viewListener);
-
-		join = findViewById(R.id.join);
-		login = findViewById(R.id.login);
-	}
-
-	ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
+	private final ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
 		@Override
 		public void onPageScrolled(int i, float v, int i1) {
 
@@ -63,7 +42,26 @@ public class OnboardingActivity extends FragmentActivity {
 		}
 	};
 
-	public void addDotsIndicator(int position) {
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		ViewPager pager = findViewById(R.id.pager);
+
+		SliderAdapter sliderAdapter = new SliderAdapter(this);
+
+		pager.setAdapter(sliderAdapter);
+
+		mDotLayout = findViewById(R.id.dots);
+		addDotsIndicator(0);
+
+		pager.addOnPageChangeListener(viewListener);
+
+		join = findViewById(R.id.join);
+		login = findViewById(R.id.login);
+	}
+
+	private void addDotsIndicator(int position) {
 		mdots = new TextView[3];
 		mDotLayout.removeAllViews();
 

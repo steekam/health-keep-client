@@ -17,6 +17,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline5"
         tools:layout_conversion_wrapHeight="368"
+        android:contentDescription="@string/app_logo"
         tools:layout_conversion_wrapWidth="412" />
 
     <TextView

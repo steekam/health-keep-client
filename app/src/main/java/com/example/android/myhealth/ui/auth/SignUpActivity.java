@@ -34,7 +34,7 @@ import timber.log.Timber;
 public class SignUpActivity extends AppCompatActivity {
 	private final CompositeDisposable disposables = new CompositeDisposable();
 
-	ProgressDialog ProcessDialog;
+	private ProgressDialog ProcessDialog;
 
 	// Views
 	@BindView(R.id.signUpUsername)
@@ -61,7 +61,7 @@ public class SignUpActivity extends AppCompatActivity {
 		init();
 	}
 
-	public void init() {
+	private void init() {
 		//Timbre init
 		if (BuildConfig.DEBUG) {
 			Timber.plant(new Timber.DebugTree());
@@ -83,31 +83,29 @@ public class SignUpActivity extends AppCompatActivity {
 				(emailisValid, passwordisValid, usernameIsValid, clientType) ->
 						validateEmail(emailisValid) && validatePassword(passwordisValid)
 								&& validateUsername(usernameIsValid) && validateClientType(clientType))
-				.subscribe(aBoolean -> {
-					mBtnSignup.setEnabled(aBoolean);
-				});
+				.subscribe(aBoolean -> mBtnSignup.setEnabled(aBoolean));
 		disposables.add(combinedObservable);
 	}
 
-	Boolean validateEmail(Boolean isValid) {
+	private Boolean validateEmail(Boolean isValid) {
 		mEmailLayout.setError(isValid ? null : "Invalid email");
 		mEmailLayout.setErrorEnabled(!isValid);
 		return isValid;
 	}
 
-	Boolean validatePassword(Boolean isValid) {
+	private Boolean validatePassword(Boolean isValid) {
 		mPasswordLayout.setError(isValid ? null : "At least 8 characters and one digit");
 		mPasswordLayout.setErrorEnabled(!isValid);
 		return isValid;
 	}
 
-	Boolean validateUsername(Boolean isValid) {
+	private Boolean validateUsername(Boolean isValid) {
 		mUsernameLayout.setError(isValid ? null : "Username is required");
 		mUsernameLayout.setErrorEnabled(!isValid);
 		return isValid;
 	}
 
-	Boolean validateClientType(Integer integer) {
+	private Boolean validateClientType(Integer integer) {
 		int lastChild = mClientType.getChildCount() - 1;
 		((RadioButton) mClientType.getChildAt(lastChild)).setError("Choose one");
 		if (integer == -1) {
