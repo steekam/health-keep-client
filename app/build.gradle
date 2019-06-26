@@ -16,9 +16,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    buildTypes.each {
-        it.buildConfigField 'String', 'HealthKeepApiKey', HealthKeepApiKey
-    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

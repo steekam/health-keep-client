@@ -56,5 +56,9 @@
     <string name="patients">Patients</string>
     <string name="join">Join</string>
     <string name="login">Login</string>
+    <string name="app_logo">App logo</string>
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="email_hint">Email</string>
 
 </resources>

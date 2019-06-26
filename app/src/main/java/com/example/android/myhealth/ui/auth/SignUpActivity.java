@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.android.myhealth.BuildConfig;
 import com.example.android.myhealth.R;
+import com.google.android.material.textfield.TextInputLayout;
 import com.jakewharton.rxbinding3.widget.RxRadioGroup;
 import com.jakewharton.rxbinding3.widget.RxTextView;
 import com.steekam.authentication.CreateAccount;
@@ -35,20 +36,23 @@ public class SignUpActivity extends AppCompatActivity {
 
 	ProgressDialog ProcessDialog;
 
+	// Views
 	@BindView(R.id.signUpUsername)
 	EditText mUsernameInput;
+	@BindView(R.id.signUpUsernameLayout)
+	TextInputLayout mUsernameLayout;
 	@BindView(R.id.signUpEmail)
 	EditText mEmailInput;
+	@BindView(R.id.signUpEmailLayout)
+	TextInputLayout mEmailLayout;
 	@BindView(R.id.signUpPassword)
 	EditText mPasswordInput;
+	@BindView(R.id.signUpPasswordLayout)
+	TextInputLayout mPasswordLayout;
 	@BindView(R.id.radioClientType)
 	RadioGroup mClientType;
 	@BindView(R.id.btnSignup)
 	Button mBtnSignup;
-
-	private SignUpViewModel signupViewModel;
-	private Disposable combinedObservable;
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +70,7 @@ public class SignUpActivity extends AppCompatActivity {
 		ButterKnife.bind(this);
 
 		// associate viewmodel
-		signupViewModel = ViewModelProviders.of(this).get(SignUpViewModel.class);
+		SignUpViewModel signupViewModel = ViewModelProviders.of(this).get(SignUpViewModel.class);
 
 		//Observables
 		Observable<Boolean> emailObservable = RxTextView.textChanges(mEmailInput).skip(1).map(signupViewModel::isEmailValid);
@@ -74,7 +78,7 @@ public class SignUpActivity extends AppCompatActivity {
 		Observable<Boolean> usernameObservable = RxTextView.textChanges(mUsernameInput).skip(1).map(signupViewModel::isUsernameValid);
 		Observable<Integer> clientTypeObservable = RxRadioGroup.checkedChanges(mClientType);
 
-		combinedObservable = Observable.combineLatest(emailObservable, passwordObservable,
+		Disposable combinedObservable = Observable.combineLatest(emailObservable, passwordObservable,
 				usernameObservable, clientTypeObservable,
 				(emailisValid, passwordisValid, usernameIsValid, clientType) ->
 						validateEmail(emailisValid) && validatePassword(passwordisValid)
@@ -86,29 +90,20 @@ public class SignUpActivity extends AppCompatActivity {
 	}
 
 	Boolean validateEmail(Boolean isValid) {
-		if (!isValid) {
-			mEmailInput.setError("Invalid email");
-		} else {
-			mEmailInput.setError(null);
-		}
+		mEmailLayout.setError(isValid ? null : "Invalid email");
+		mEmailLayout.setErrorEnabled(!isValid);
 		return isValid;
 	}
 
 	Boolean validatePassword(Boolean isValid) {
-		if (!isValid) {
-			mPasswordInput.setError("At least 8 characters and one digit");
-		} else {
-			mPasswordInput.setError(null);
-		}
+		mPasswordLayout.setError(isValid ? null : "At least 8 characters and one digit");
+		mPasswordLayout.setErrorEnabled(!isValid);
 		return isValid;
 	}
 
 	Boolean validateUsername(Boolean isValid) {
-		if (!isValid) {
-			mUsernameInput.setError("Required");
-		} else {
-			mUsernameInput.setError(null);
-		}
+		mUsernameLayout.setError(isValid ? null : "Username is required");
+		mUsernameLayout.setErrorEnabled(!isValid);
 		return isValid;
 	}
 

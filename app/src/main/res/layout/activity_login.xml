@@ -12,11 +12,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@+id/signup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/app_logo"
         app:srcCompat="@drawable/logo_no_background" />
 
     <TextView
@@ -43,7 +44,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
-        android:hint="Username"
+        android:hint="@string/username_hint"
         app:endIconDrawable="@drawable/ic_user"
         app:endIconMode="custom"
         app:layout_constraintBottom_toTopOf="@+id/signInPasswordLayout"
@@ -68,7 +69,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
-        android:hint="Password"
+        android:hint="@string/password_hint"
         app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
