@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+        android:id="@+id/appointments"
+        android:icon="@drawable/ic_appointment"
+        android:title="@string/appointments" />
+        <item
+            android:id="@+id/prescriptions"
+            android:icon="@drawable/ic_prescriptions"
+            android:title="@string/prescriptions" />
+        <item
+            android:id="@+id/chat"
+            android:icon="@drawable/ic_mail"
+            android:title="@string/chat" />
+
+    </group>
+
+    <item android:title="@string/personal">
+        <menu>
+
+            <item
+                android:id="@+id/account"
+                android:icon="@drawable/ic_user"
+                android:title="@string/account" />
+
+            <item
+                android:id="@+id/logout"
+                android:icon="@drawable/ic_arrow_back"
+                android:title="@string/logout" />
+        </menu>
+    </item>
+
+</menu>
