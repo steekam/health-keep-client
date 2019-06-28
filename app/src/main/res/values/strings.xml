@@ -38,7 +38,7 @@
     <string name="no_account">Don\'t have an account?</string>
     <string name="signup_error">Error in creating account</string>
     <string name="signup_email_error">Invalid email provided</string>
-    <string name="title_activity_patient_dashboard">My Dashboard</string>
+    <string name="title_activity_my_dashboard">My Dashboard</string>
     <string name="appointments">Appointments</string>
     <string name="prescriptions">Prescriptions</string>
     <string name="chat">Chat</string>
@@ -51,7 +51,7 @@
     <string name="upcoming_appointments">Upcoming Appointments</string>
     <string name="title_activity_patient_prescriptions">My Prescriptions</string>
     <string name="title_activity_patient_account">My Account</string>
-    <string name="title_activity_doctor_nav">doctor_nav</string>
+    <string name="title_activity_doctor_nav">Doctor\'s Dashboard</string>
     <string name="patients">Patients</string>
     <string name="join">Join</string>
     <string name="login">Login</string>

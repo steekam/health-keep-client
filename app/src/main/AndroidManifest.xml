@@ -14,11 +14,11 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.doctors.DoctorNav"
-            android:label="@string/title_activity_doctor_nav"
+            android:label="@string/title_activity_my_dashboard"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.patients.NavDrawer"
-            android:label="@string/title_activity_nav_drawer"
+            android:name=".ui.patients.PatientNav"
+            android:label="@string/title_activity_my_dashboard"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.onboarding.OnboardingActivity">
             <intent-filter>

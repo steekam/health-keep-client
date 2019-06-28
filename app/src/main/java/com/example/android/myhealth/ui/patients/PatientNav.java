@@ -1,5 +1,6 @@
 package com.example.android.myhealth.ui.patients;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,32 +14,38 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.android.myhealth.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.example.android.myhealth.ui.doctors.mFragments.Account;
+import com.example.android.myhealth.ui.doctors.mFragments.Chat;
+import com.example.android.myhealth.ui.doctors.mFragments.Patients;
+import com.example.android.myhealth.ui.onboarding.OnboardingActivity;
+import com.example.android.myhealth.ui.patients.mFragments.Appointments;
+import com.example.android.myhealth.ui.patients.mFragments.Prescriptions;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
-public class NavDrawer extends AppCompatActivity
+public class PatientNav extends AppCompatActivity
 		implements NavigationView.OnNavigationItemSelectedListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_nav_drawer);
+		setContentView(R.layout.activity_patient_nav);
 		Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
-
-		FloatingActionButton fab = findViewById(R.id.fab);
-		fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-				.setAction("Action", null).show());
-
 		DrawerLayout drawer = findViewById(R.id.drawer_layout);
+		NavigationView navigationView = findViewById(R.id.nav_view);
+		navigationView.setNavigationItemSelectedListener(this);
+
 		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
 				this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 		drawer.addDrawerListener(toggle);
 		toggle.syncState();
 
-		NavigationView navigationView = findViewById(R.id.nav_view);
-		navigationView.setNavigationItemSelectedListener(this);
+		if (savedInstanceState == null) {
+			getSupportFragmentManager().beginTransaction()
+					.replace(R.id.fragment_frame, new Patients())
+					.commit();
+			navigationView.setCheckedItem(R.id.chat);
+		}
 	}
 
 	@Override
@@ -54,7 +61,7 @@ public class NavDrawer extends AppCompatActivity
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.nav_drawer, menu);
+		getMenuInflater().inflate(R.menu.patient_nav, menu);
 		return true;
 	}
 
@@ -65,36 +72,44 @@ public class NavDrawer extends AppCompatActivity
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 
-		//noinspection SimplifiableIfStatement
-		if (id == R.id.action_settings) {
-			return true;
-		}
-
+        /*noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        */
 		return super.onOptionsItemSelected(item);
 	}
 
-	@SuppressWarnings("StatementWithEmptyBody")
 	@Override
 	public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-		// Handle navigation view item clicks here.
+
 		int id = item.getItemId();
 		FragmentManager fragmentManager = getSupportFragmentManager();
 
-		if (id == R.id.account) {
-//			fragmentManager.beginTransaction()
-//					.replace(R.id.content_frame
-//							, new Account())
-//					.commit();
-		} else if (id == R.id.nav_gallery) {
-
-		} else if (id == R.id.nav_slideshow) {
-
-		} else if (id == R.id.nav_tools) {
-
-		} else if (id == R.id.nav_share) {
-
-		} else if (id == R.id.nav_send) {
-
+		if (id == R.id.appointments) {
+			fragmentManager.beginTransaction()
+					.replace(R.id.fragment_frame
+							, new Appointments())
+					.commit();
+		} else if (id == R.id.chat) {
+			fragmentManager.beginTransaction()
+					.replace(R.id.fragment_frame
+							, new Chat())
+					.commit();
+		} else if (id == R.id.prescriptions) {
+			fragmentManager.beginTransaction()
+					.replace(R.id.fragment_frame
+							, new Prescriptions())
+					.commit();
+		} else if (id == R.id.account) {
+			fragmentManager.beginTransaction()
+					.replace(R.id.fragment_frame
+							, new Account())
+					.commit();
+		} else if (id == R.id.logout) {
+			Intent intent = new Intent(PatientNav.this, OnboardingActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+			startActivity(intent);
 		}
 
 		DrawerLayout drawer = findViewById(R.id.drawer_layout);
