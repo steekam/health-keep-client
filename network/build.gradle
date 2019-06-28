@@ -45,7 +45,7 @@ dependencies {
 
     // Auto value Gson
     annotationProcessor "com.ryanharter.auto.value:auto-value-gson:$autoValueGsonVersion"
-    implementation "com.ryanharter.auto.value:auto-value-gson-runtime:$autoValueGsonVersion"
+    api "com.ryanharter.auto.value:auto-value-gson-runtime:$autoValueGsonVersion"
     compileOnly "com.ryanharter.auto.value:auto-value-gson:$autoValueGsonVersion"
 
     //Stetho

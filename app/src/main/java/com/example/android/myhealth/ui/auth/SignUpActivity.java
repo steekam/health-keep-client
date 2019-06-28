@@ -1,41 +1,49 @@
 package com.example.android.myhealth.ui.auth;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.android.myhealth.BuildConfig;
 import com.example.android.myhealth.R;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
+import com.jakewharton.rxbinding3.view.RxView;
 import com.jakewharton.rxbinding3.widget.RxRadioGroup;
 import com.jakewharton.rxbinding3.widget.RxTextView;
 import com.steekam.authentication.CreateAccount;
 
+import java.lang.reflect.Type;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 import okhttp3.ResponseBody;
 import retrofit2.HttpException;
 import timber.log.Timber;
 
 public class SignUpActivity extends AppCompatActivity {
 	private final CompositeDisposable disposables = new CompositeDisposable();
-
-	private ProgressDialog ProcessDialog;
-
 	// Views
 	@BindView(R.id.signUpUsername)
 	EditText mUsernameInput;
@@ -51,8 +59,13 @@ public class SignUpActivity extends AppCompatActivity {
 	TextInputLayout mPasswordLayout;
 	@BindView(R.id.radioClientType)
 	RadioGroup mClientType;
+	@BindView(R.id.patientOption)
+	RadioButton mLastClientType;
 	@BindView(R.id.btnSignup)
 	Button mBtnSignup;
+	private ProgressDialog progressDialog;
+
+	private SignUpViewModel signupViewModel;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,52 +83,106 @@ public class SignUpActivity extends AppCompatActivity {
 		ButterKnife.bind(this);
 
 		// associate viewmodel
-		SignUpViewModel signupViewModel = ViewModelProviders.of(this).get(SignUpViewModel.class);
+		signupViewModel = ViewModelProviders.of(this).get(SignUpViewModel.class);
+
+		// password key listener
+		mPasswordInput.setOnKeyListener((v, keyCode, event) -> {
+			if (keyCode == KeyEvent.KEYCODE_ENTER) {
+				mPasswordInput.clearFocus();
+				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+				assert imm != null;
+				imm.hideSoftInputFromWindow(mPasswordInput.getWindowToken(), 0);
+				return true;
+			} else return false;
+		});
 
 		//Observables
-		Observable<Boolean> emailObservable = RxTextView.textChanges(mEmailInput).skip(1).map(signupViewModel::isEmailValid);
-		Observable<Boolean> passwordObservable = RxTextView.textChanges(mPasswordInput).skip(1).map(signupViewModel::isPasswordValid);
-		Observable<Boolean> usernameObservable = RxTextView.textChanges(mUsernameInput).skip(1).map(signupViewModel::isUsernameValid);
-		Observable<Integer> clientTypeObservable = RxRadioGroup.checkedChanges(mClientType);
+		Observable<Boolean> emailObservable = RxView.focusChanges(mEmailInput)
+				.skipInitialValue()
+				.map(hasFocus -> {
+					if (!hasFocus)
+						validateEmail(signupViewModel.isEmailValid(mEmailInput.getText().toString()));
+					return hasFocus;
+				})
+				.flatMap(hasFocus -> RxTextView.textChanges(mEmailInput)
+						.skipInitialValue()
+						.map(sequence -> {
+							if (hasFocus && mEmailLayout.isErrorEnabled()) mEmailLayout.setErrorEnabled(false);
+							return hasFocus;
+						})
+						.skipWhile(__ -> hasFocus)
+						.doOnEach(__ -> validateEmail(signupViewModel.isEmailValid(mEmailInput.getText().toString())))
+				);
+		Observable<Boolean> passwordObservable = RxView.focusChanges(mPasswordInput)
+				.skipInitialValue()
+				.map(hasFocus -> {
+					if (!hasFocus)
+						validatePassword(signupViewModel.isPasswordValid(mPasswordInput.getText().toString()));
+					return hasFocus;
+				})
+				.flatMap(hasFocus -> RxTextView.textChanges(mPasswordInput)
+						.skipInitialValue()
+						.map(sequence -> {
+							if (hasFocus && mPasswordLayout.isErrorEnabled())
+								mPasswordLayout.setErrorEnabled(false);
+							return hasFocus;
+						})
+						.skipWhile(__ -> hasFocus)
+						.doOnEach(__ -> validatePassword(signupViewModel.isPasswordValid(mPasswordInput.getText().toString())))
+				);
+		Observable<Boolean> usernameObservable = RxView.focusChanges(mUsernameInput)
+				.skipInitialValue()
+				.map(hasFocus -> {
+					if (!hasFocus)
+						validateUsername(signupViewModel.isUsernameValid(mUsernameInput.getText().toString()));
+					return hasFocus;
+				}).flatMap(hasFocus -> RxTextView.textChanges(mUsernameInput)
+						.skipInitialValue()
+						.map(sequence -> {
+							if (hasFocus && mUsernameLayout.isErrorEnabled())
+								mUsernameLayout.setErrorEnabled(false);
+							return hasFocus;
+						})
+						.skipWhile(__ -> hasFocus)
+						.doOnEach(__ -> validateUsername(signupViewModel.isUsernameValid(mUsernameInput.getText().toString())))
+				);
+		Observable<Integer> clientTypeObservable = RxRadioGroup.checkedChanges(mClientType)
+				.skipInitialValue();
 
-		Disposable combinedObservable = Observable.combineLatest(emailObservable, passwordObservable,
-				usernameObservable, clientTypeObservable,
-				(emailisValid, passwordisValid, usernameIsValid, clientType) ->
-						validateEmail(emailisValid) && validatePassword(passwordisValid)
-								&& validateUsername(usernameIsValid) && validateClientType(clientType))
-				.subscribe(aBoolean -> mBtnSignup.setEnabled(aBoolean));
-		disposables.add(combinedObservable);
+		disposables.addAll(emailObservable.subscribe(),
+				passwordObservable.subscribe(),
+				usernameObservable.subscribe(),
+				clientTypeObservable.subscribe(this::validateClientType),
+				signupViewModel.validForm()
+						.subscribe(validForm -> mBtnSignup.setEnabled(validForm))
+		);
 	}
 
-	private Boolean validateEmail(Boolean isValid) {
-		mEmailLayout.setError(isValid ? null : "Invalid email");
+	private void validateEmail(Boolean isValid) {
+		mEmailLayout.setError(isValid ? null : getResources().getString(R.string.signup_email_error));
 		mEmailLayout.setErrorEnabled(!isValid);
-		return isValid;
 	}
 
-	private Boolean validatePassword(Boolean isValid) {
-		mPasswordLayout.setError(isValid ? null : "At least 8 characters and one digit");
+	private void validatePassword(Boolean isValid) {
+		mPasswordLayout.setError(isValid ? null : getResources().getString(R.string.signup_password_error));
 		mPasswordLayout.setErrorEnabled(!isValid);
-		return isValid;
 	}
 
-	private Boolean validateUsername(Boolean isValid) {
-		mUsernameLayout.setError(isValid ? null : "Username is required");
+	private void validateUsername(Boolean isValid) {
+		mUsernameLayout.setError(isValid ? null : getResources().getString(R.string.signup_username_error));
 		mUsernameLayout.setErrorEnabled(!isValid);
-		return isValid;
 	}
 
-	private Boolean validateClientType(Integer integer) {
-		int lastChild = mClientType.getChildCount() - 1;
-		((RadioButton) mClientType.getChildAt(lastChild)).setError("Choose one");
+	private void validateClientType(Integer integer) {
 		if (integer == -1) {
-			//none clicked
-			((RadioButton) mClientType.getChildAt(lastChild)).setError("Choose one");
-			return false;
+			//none checked
+			mLastClientType.setError(getResources().getString(R.string.signup_client_type_error));
+			signupViewModel.clienTypeRelay.accept(false);
 		} else {
-			((RadioButton) mClientType.getChildAt(lastChild)).setError(null);
-			return true;
+			mLastClientType.setError(null);
+			signupViewModel.clienTypeRelay.accept(true);
 		}
+		signupViewModel.changeValidFormRelay();
 	}
 
 	@Override
@@ -130,10 +197,43 @@ public class SignUpActivity extends AppCompatActivity {
 		startActivity(intent);
 	}
 
+	void setFormErrors(Map<String, ArrayList<String>> formErrors) {
+		//loop through keys
+		for (String key : formErrors.keySet()) {
+			switch (key) {
+				case "email": {
+					mEmailLayout.setErrorEnabled(true);
+					mEmailLayout.setError(Objects.requireNonNull(formErrors.get(key)).get(0));
+					break;
+				}
+				case "username": {
+					mUsernameLayout.setErrorEnabled(true);
+					mUsernameLayout.setError(Objects.requireNonNull(formErrors.get(key)).get(0));
+					break;
+				}
+			}
+		}
+	}
+
+	public void clearForm() {
+		clearField(mEmailLayout, mEmailInput);
+		clearField(mUsernameLayout, mUsernameInput);
+		clearField(mPasswordLayout, mPasswordInput);
+		mClientType.clearCheck();
+		mLastClientType.setError(null);
+	}
+
+	public void clearField(TextInputLayout inputLayout, EditText editText) {
+		editText.setText(null);
+		editText.clearFocus();
+		inputLayout.setError(null);
+		inputLayout.setErrorEnabled(false);
+	}
+
 	public void createAccount(View view) {
-		ProcessDialog = new ProgressDialog(SignUpActivity.this);
-		ProcessDialog.setMessage("Creating account...");
-		ProcessDialog.show();
+		progressDialog = new ProgressDialog(SignUpActivity.this);
+		progressDialog.setMessage("Creating account...");
+		progressDialog.show();
 		String clientEmail = mEmailInput.getText().toString();
 		String clientUsername = mUsernameInput.getText().toString();
 		String clientPassword = mPasswordInput.getText().toString();
@@ -145,20 +245,48 @@ public class SignUpActivity extends AppCompatActivity {
 		disposables.add(createAccount
 				.sendRequest(clientEmail, clientUsername, clientPassword, clientRole)
 				.subscribe(clientResponse -> {
-					ProcessDialog.dismiss();
+					progressDialog.dismiss();
 					if (clientResponse.isSuccessful()) {
-						//TODO: Handle success
-						Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+						clearForm();
+						Snackbar.make(mBtnSignup, R.string.signup_success, 5000)
+								.show();
+					} else {
+						assert clientResponse.errorBody() != null;
+						String errorContent = clientResponse.errorBody().source().buffer().clone().readUtf8();
+						JsonParser parser = new JsonParser();
+						JsonObject jsonObject = parser.parse(errorContent).getAsJsonObject();
+
+						//Create hash map
+						Gson gson = new Gson();
+						Type errorMapType = new TypeToken<Map<String, ArrayList<String>>>() {
+						}.getType();
+						String errorString = gson.toJson(jsonObject.get("errors"));
+						Map<String, ArrayList<String>> formErrors = gson.fromJson(errorString, errorMapType);
+						setFormErrors(formErrors);
 					}
 				}, throwable -> {
-					ProcessDialog.dismiss();
-					//TODO: Finish errors
-					Toast.makeText(this, "An error occurred", Toast.LENGTH_SHORT).show();
-					if (throwable instanceof HttpException) {
+					progressDialog.dismiss();
+					Timber.e(throwable);
+					if (throwable instanceof UnknownHostException) {
+						Snackbar.make(mBtnSignup, R.string.internet_connection_error, Snackbar.LENGTH_LONG)
+								.show();
+					} else if (throwable instanceof HttpException) {
 						ResponseBody responseBody = Objects.requireNonNull(((HttpException) throwable).response()).errorBody();
 						assert responseBody != null;
 						String errString = responseBody.string();
-						Toast.makeText(this, errString, Toast.LENGTH_LONG).show();
+						JsonParser parser = new JsonParser();
+						JsonObject jsonObject = parser.parse(errString).getAsJsonObject();
+
+						//Create hash map
+						Gson gson = new Gson();
+						Type errorMapType = new TypeToken<Map<String, ArrayList<String>>>() {
+						}.getType();
+						String errorString = gson.toJson(jsonObject.get("errors"));
+						Map<String, ArrayList<String>> formErrors = gson.fromJson(errorString, errorMapType);
+						setFormErrors(formErrors);
+					} else {
+						Snackbar.make(mBtnSignup, R.string.signup_error, Snackbar.LENGTH_LONG)
+								.show();
 					}
 				}));
 	}
