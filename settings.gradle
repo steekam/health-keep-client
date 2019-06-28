@@ -1,0 +1,1 @@
+include ':app', ':network', ':database', ':entities', ':repository', ':common_core', ':authentication'

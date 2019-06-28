@@ -1,0 +1,85 @@
+<resources>
+    <string name="app_name">Health Keep</string>
+    <string name="health_keep">Health Keep</string>
+    <string name="reminder">Your personal health reminder</string>
+    <string name="appointment_tracker">Appointment Tracker</string>
+    <string name="remember">We help you remember</string>
+    <string name="doctor_chat">Doctor Chat</string>
+    <string name="doctors">Keep in touch with your Doctors</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="email">Email Address</string>
+    <string name="password">Password</string>
+    <string name="title_activity_nav_drawer">NavDrawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_username">Username</string>
+    <string name="nav_header_email_address">Email Address</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+    <string name="prompt_username">Username</string>
+    <string name="prompt_password">Password</string>
+    <string name="doctor">Doctor</string>
+    <string name="patient">Patient</string>
+    <string name="sign_up_activity_title">Sign up</string>
+    <string name="signup_loading_text">Signing in…</string>
+    <string name="have_account">Already have an account?</string>
+    <string name="sign_in_text">Sign in</string>
+    <string name="prompt_email">Email</string>
+    <string name="signin_activity_title">Sign in</string>
+    <string name="forgot_password_prompt">Forgot password?</string>
+    <string name="no_account">Don\'t have an account?</string>
+    <string name="title_activity_patient_dashboard">My Dashboard</string>
+    <string name="title_activity_my_dashboard">My Dashboard</string>
+    <string name="appointments">Appointments</string>
+    <string name="prescriptions">Prescriptions</string>
+    <string name="chat">Chat</string>
+    <string name="personal">Personal</string>
+    <string name="account">Account</string>
+    <string name="logout">Logout</string>
+    <string name="title_activity_patient_appointments">My Appointments</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="upcoming_appointments">Upcoming Appointments</string>
+    <string name="title_activity_patient_prescriptions">My Prescriptions</string>
+    <string name="title_activity_patient_account">My Account</string>
+    <string name="title_activity_doctor_nav">Doctor\'s Dashboard</string>
+    <string name="patients">Patients</string>
+    <string name="join">Join</string>
+    <string name="login">Login</string>
+    <string name="edit">Edit</string>
+    <string name="app_logo">App logo</string>
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="email_hint">Email</string>
+
+    <!--On-boarding slide adapter strings-->
+    <string-array name="slide_headings">
+        <item>Welcome to Health Keep</item>
+        <item>Appointment Tracker</item>
+        <item>Doctor Chat</item>
+    </string-array>
+    <string-array name="slide_descriptions">
+        <item>Your personal health reminder</item>
+        <item>Never miss a doctor\'s appointment</item>
+        <item>Keep in touch with your doctors</item>
+    </string-array>
+
+    <string name="internet_connection_error">No internet connection</string>
+
+    <!--Sign up related strings-->
+    <string name="signup_email_error">Invalid email provided</string>
+    <string name="signup_username_error">Username is required</string>
+    <string name="signup_password_error">At least 8 characters and one digit</string>
+    <string name="signup_client_type_error">Choose one</string>
+
+    <string name="signup_success">A verification link has been sent to your email. Verify your account to login.</string>
+    <string name="signup_error">Oops! Something ain\'t right </string>
+</resources>
