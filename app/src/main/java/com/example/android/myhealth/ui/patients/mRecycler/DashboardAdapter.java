@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.myhealth.R;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.RecyclerViewHolder> {
+public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.RecyclerViewHolder> {
 
     private final Context context;
     private final String[] appoint;
 
-    public MyAdapter(Context context, String[] appoint){
+    public DashboardAdapter(Context context, String[] appoint){
         this.context = context;
         this.appoint = appoint;
     }
@@ -24,8 +24,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.RecyclerViewHolder
     @NonNull
     @Override
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.patient_model,parent,false);
-        return new com.example.android.myhealth.ui.patients.mRecycler.MyAdapter.RecyclerViewHolder(v);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.patient_dashboard_model,parent,false);
+        return new DashboardAdapter.RecyclerViewHolder(v);
     }
 
     @Override

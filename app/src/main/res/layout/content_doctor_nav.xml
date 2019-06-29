@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/fragment_frame"
+    android:id="@+id/content_frame"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ui.doctors.DoctorNav"
     tools:showIn="@layout/app_bar_doctor_nav">

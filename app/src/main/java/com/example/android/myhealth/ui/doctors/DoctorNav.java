@@ -29,6 +29,7 @@ public class DoctorNav extends AppCompatActivity
         setContentView(R.layout.activity_doctor_nav);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -40,9 +41,9 @@ public class DoctorNav extends AppCompatActivity
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_frame, new Patients())
+                    .replace(R.id.content_frame, new Patients())
                     .commit();
-            navigationView.setCheckedItem(R.id.chat);
+            navigationView.setCheckedItem(R.id.patients);
         }
     }
 
@@ -86,16 +87,16 @@ public class DoctorNav extends AppCompatActivity
 
         if (id == R.id.patients) {
             fragmentManager.beginTransaction()
-                    .replace(R.id.fragment_frame, new Patients())
+                    .replace(R.id.content_frame, new Patients())
                     .commit();
         } else if (id == R.id.chat) {
             fragmentManager.beginTransaction()
-                    .replace(R.id.fragment_frame
+                    .replace(R.id.content_frame
                             , new Chat())
                     .commit();
         } else if (id == R.id.account) {
             fragmentManager.beginTransaction()
-                    .replace(R.id.fragment_frame
+                    .replace(R.id.content_frame
                             , new Account())
                     .commit();
         } else if (id == R.id.logout) {

@@ -16,35 +16,34 @@ import com.example.android.myhealth.R;
 import com.example.android.myhealth.ui.doctors.mFragments.Patients;
 import com.example.android.myhealth.ui.doctors.mRecycler.MyAdapter;
 
-public class Prescriptions extends Fragment {
+public class Dashboard extends Fragment {
 
-    public static final String[] appoint = {"Panadol", "Paracetamol", "Eno", "Antacid"};
+    private static final String[] dash = {"Dashboard"};
 
-    public static Prescriptions newInstance(){
-        return new Prescriptions();
+    public static Patients newInstance(){
+        return new Patients();
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.patient_prescriptions,null);
-//        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
-        ((AppCompatActivity) getActivity()).setTitle("Prescriptions");
+        View rootView = inflater.inflate(R.layout.patient_dashboard,null);
+        ((AppCompatActivity) getActivity()).setTitle("Dashboard");
 
         //REFERENCE
-        RecyclerView rv = rootView.findViewById(R.id.rvprescriptions);
+        RecyclerView rv = rootView.findViewById(R.id.rvdash);
 
         //LAYOUT MANAGER
         rv.setLayoutManager(new LinearLayoutManager((getActivity())));
 
         //ADAPTER
-        rv.setAdapter(new MyAdapter(getActivity(),appoint));
+        rv.setAdapter(new MyAdapter(getActivity(),dash));
 
         return rootView;
     }
 
     @NonNull
     public String toString(){
-        return "Prescriptions";
+        return "patient";
     }
 }
