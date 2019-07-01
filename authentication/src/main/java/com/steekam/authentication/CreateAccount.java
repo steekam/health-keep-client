@@ -3,7 +3,7 @@ package com.steekam.authentication;
 import android.content.Context;
 
 import com.steekam.network.RetrofitClient;
-import com.steekam.network.models.Client;
+import com.steekam.network.models.ClientDTO;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -19,7 +19,7 @@ public class CreateAccount {
 		this.context = context;
 	}
 
-	public Observable<Response<Client>> sendRequest(String email, String username, String password, String role) {
+	public Observable<Response<ClientDTO>> sendRequest(String email, String username, String password, String role) {
 		return RetrofitClient.getInstance(this.context)
 				.getClientService().registerClient(username, email, password, role)
 				.subscribeOn(Schedulers.io())

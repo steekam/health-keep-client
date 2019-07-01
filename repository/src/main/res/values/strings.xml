@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">repository</string>
+    <string name="logged_in_client_key">loggedInClient</string>
+    <string name="mydefault_preferences_filename">default</string>
 </resources>

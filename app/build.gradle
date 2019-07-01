@@ -30,7 +30,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$supportLibraryVersion"
     implementation "androidx.recyclerview:recyclerview:$recyclerViewVersion"
     implementation "com.google.android.material:material:$materialVersion"
-    implementation "androidx.cardview:cardview:1.0.0"
+    implementation "androidx.cardview:cardview:$cardViewVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
 
     // Common core
@@ -42,8 +42,8 @@ dependencies {
 
     // ButterKnife
     implementation "com.jakewharton:butterknife:$butterKnifeVersion"
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
+//    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     //Lifecyle with ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
@@ -53,6 +53,9 @@ dependencies {
 
     //Authentication
     implementation project(":authentication")
+
+    //Custom styling
+    implementation project(":custom_stylings")
 
     //Stetho
     implementation "com.facebook.stetho:stetho:$stethoVersion"

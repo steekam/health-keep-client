@@ -4,6 +4,16 @@
     <color name="colorPrimaryDark">#006B95</color>
     <color name="colorAccent">#F4816A</color>
 
+    <!--Generated from Material Color tool-->
+    <color name="primaryColor">#2bc4ff</color>
+    <color name="primaryLightColor">#76f7ff</color>
+    <color name="primaryDarkColor">#0093cc</color>
+    <color name="secondaryColor">#f4816a</color>
+    <color name="secondaryLightColor">#ffb298</color>
+    <color name="secondaryDarkColor">#bd523f</color>
+    <color name="primaryTextColor">#fafafa</color>
+    <color name="secondaryTextColor">#eeeeee</color>
+
     <color name="blue">#2BC4FF</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>

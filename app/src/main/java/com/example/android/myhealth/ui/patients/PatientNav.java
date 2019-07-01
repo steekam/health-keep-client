@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.android.myhealth.R;
 import com.example.android.myhealth.ui.doctors.mFragments.Account;
@@ -22,13 +23,31 @@ import com.example.android.myhealth.ui.patients.mFragments.Appointments;
 import com.example.android.myhealth.ui.patients.mFragments.Prescriptions;
 import com.google.android.material.navigation.NavigationView;
 
+import io.reactivex.CompletableSource;
+import io.reactivex.disposables.CompositeDisposable;
+
 public class PatientNav extends AppCompatActivity
 		implements NavigationView.OnNavigationItemSelectedListener {
+	private final CompositeDisposable disposables = new CompositeDisposable();
+	private PatientNavViewModel patientNavViewModel;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_patient_nav);
+		if (savedInstanceState == null) {
+			getSupportFragmentManager().beginTransaction()
+					.replace(R.id.fragment_frame, new Patients())
+					.commit();
+//			navigationView.setCheckedItem(R.id.chat);
+		}
+		init();
+	}
+
+	void init() {
+		//view model
+		patientNavViewModel = ViewModelProviders.of(this, new PatientNavViewModelFactory(getApplication(), this)).get(PatientNavViewModel.class);
+
 		Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 		DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -39,13 +58,6 @@ public class PatientNav extends AppCompatActivity
 				this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 		drawer.addDrawerListener(toggle);
 		toggle.syncState();
-
-		if (savedInstanceState == null) {
-			getSupportFragmentManager().beginTransaction()
-					.replace(R.id.fragment_frame, new Patients())
-					.commit();
-			navigationView.setCheckedItem(R.id.chat);
-		}
 	}
 
 	@Override
@@ -107,13 +119,25 @@ public class PatientNav extends AppCompatActivity
 							, new Account())
 					.commit();
 		} else if (id == R.id.logout) {
-			Intent intent = new Intent(PatientNav.this, OnboardingActivity.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-			startActivity(intent);
+			disposables.add(
+					patientNavViewModel.logout().andThen(
+							(CompletableSource) co -> {
+								Intent intent = new Intent(PatientNav.this, OnboardingActivity.class);
+								intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+								startActivity(intent);
+							}
+					).subscribe()
+			);
 		}
 
 		DrawerLayout drawer = findViewById(R.id.drawer_layout);
 		drawer.closeDrawer(GravityCompat.START);
 		return true;
+	}
+
+	@Override
+	protected void onDestroy() {
+		disposables.clear();
+		super.onDestroy();
 	}
 }

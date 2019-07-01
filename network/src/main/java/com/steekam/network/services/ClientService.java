@@ -1,6 +1,6 @@
 package com.steekam.network.services;
 
-import com.steekam.network.models.Client;
+import com.steekam.network.models.ClientDTO;
 
 import io.reactivex.Observable;
 import retrofit2.Response;
@@ -14,7 +14,7 @@ public interface ClientService {
 	@Headers({"Accept: application/json", "Content-Type: application/x-www-form-urlencoded"})
 	@POST("clients")
 	@FormUrlEncoded
-	Observable<Response<Client>> registerClient(
+	Observable<Response<ClientDTO>> registerClient(
 			@Field("username") String username,
 			@Field("email") String email,
 			@Field("password") String password,
@@ -22,10 +22,12 @@ public interface ClientService {
 	);
 
 	@Headers({"Accept: application/json", "Content-Type: application/x-www-form-urlencoded"})
-	@POST("clients_login")
+	@POST("client_login")
 	@FormUrlEncoded
-	Observable<Client> loginClient(
+	Observable<Response<ClientDTO>> loginClient(
 			@Field("username") String username,
 			@Field("password") String password
 	);
+
+	//TODO: add update and delete endpoints
 }

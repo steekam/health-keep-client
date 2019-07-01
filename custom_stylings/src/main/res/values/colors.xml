@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="design_default_color_success">#00C851</color>
+    <color name="design_default_color_success_dark">#007E33</color>
+    <color name="design_default_color_info">#33b5e5</color>
+    <color name="design_default_color_info_dark">#0099CC</color>
+    <color name="design_default_color_warning">#ffbb33</color>
+    <color name="design_default_color_warning_dark">#FF8800</color>
+
+    <color name="transparent">#80000000</color>
+</resources>

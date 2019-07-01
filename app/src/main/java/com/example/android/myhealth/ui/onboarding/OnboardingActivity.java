@@ -44,6 +44,11 @@ public class OnboardingActivity extends FragmentActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		//TODO: remove after testing
+		Intent intent = new Intent(OnboardingActivity.this, LoginActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+		startActivity(intent);
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		ViewPager pager = findViewById(R.id.pager);
@@ -79,13 +84,13 @@ public class OnboardingActivity extends FragmentActivity {
 		}
 	}
 
-	public void launchlogin(View view){
+	public void launchLogin(View view) {
 		Intent intent = new Intent(OnboardingActivity.this, LoginActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 		startActivity(intent);
 	}
 
-	public void launchsignup(View view){
+	public void launchSignUp(View view) {
 		Intent intent = new Intent(OnboardingActivity.this, SignUpActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 		startActivity(intent);

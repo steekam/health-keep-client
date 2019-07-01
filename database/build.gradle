@@ -12,6 +12,12 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+
     }
 
     buildTypes {
@@ -25,12 +31,28 @@ android {
 
 dependencies {
     //Room
-    implementation "androidx.room:room-runtime:$roomVersion"
+    api "androidx.room:room-runtime:$roomVersion"
     annotationProcessor "androidx.room:room-compiler:$roomVersion"
+
+    // RxJava support for Room
+    implementation "androidx.room:room-rxjava2:$roomVersion"
 
     //Entities
     implementation project(":entities")
 
+    //Common
+    implementation project(":common_core")
+
+    // Auto value
+    compileOnly "com.google.auto.value:auto-value:$autoValueVersion"
+    annotationProcessor "com.google.auto.value:auto-value:$autoValueVersion"
+
+    // Auto value Gson
+    annotationProcessor "com.ryanharter.auto.value:auto-value-gson:$autoValueGsonVersion"
+    implementation "com.ryanharter.auto.value:auto-value-gson-runtime:$autoValueGsonVersion"
+    compileOnly "com.ryanharter.auto.value:auto-value-gson:$autoValueGsonVersion"
+
+    testImplementation "androidx.room:room-testing:$roomVersion"
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test:runner:$testRunnerVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"

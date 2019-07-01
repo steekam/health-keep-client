@@ -82,7 +82,7 @@ public class SignUpActivity extends AppCompatActivity {
 		//Butterknife
 		ButterKnife.bind(this);
 
-		// associate viewmodel
+		// associate view model
 		signupViewModel = ViewModelProviders.of(this).get(SignUpViewModel.class);
 
 		// password key listener
@@ -169,7 +169,7 @@ public class SignUpActivity extends AppCompatActivity {
 	}
 
 	private void validateUsername(Boolean isValid) {
-		mUsernameLayout.setError(isValid ? null : getResources().getString(R.string.signup_username_error));
+		mUsernameLayout.setError(isValid ? null : getResources().getString(R.string.required_field_error));
 		mUsernameLayout.setErrorEnabled(!isValid);
 	}
 

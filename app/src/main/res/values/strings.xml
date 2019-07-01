@@ -76,10 +76,13 @@
 
     <!--Sign up related strings-->
     <string name="signup_email_error">Invalid email provided</string>
-    <string name="signup_username_error">Username is required</string>
     <string name="signup_password_error">At least 8 characters and one digit</string>
     <string name="signup_client_type_error">Choose one</string>
 
     <string name="signup_success">A verification link has been sent to your email. Verify your account to login.</string>
     <string name="signup_error">Oops! Something ain\'t right </string>
+
+    <string name="required_field_error">Required field</string>
+    <string name="login_invalid_credentials">Invalid credentials</string>
+    <string name="error_occurred">An error occurred</string>
 </resources>
