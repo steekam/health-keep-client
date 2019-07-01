@@ -33,17 +33,10 @@ public class DoctorNav extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_nav);
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.content_frame, new Patients())
-                    .commit();
-            navigationView.setCheckedItem(R.id.patients);
-        }
-
-        init();
+	    init(savedInstanceState);
     }
 
-    void init() {
+	void init(Bundle savedInstanceState) {
 	    //view model
 	    doctorNavViewModel = ViewModelProviders.of(this, new DoctorNavViewModelFactory(getApplication(), this)).get(DoctorNavViewModel.class);
 
@@ -58,6 +51,13 @@ public class DoctorNav extends AppCompatActivity
 			    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 	    drawer.addDrawerListener(toggle);
 	    toggle.syncState();
+
+		if (savedInstanceState == null) {
+			getSupportFragmentManager().beginTransaction()
+					.replace(R.id.content_frame, new Patients())
+					.commit();
+			navigationView.setCheckedItem(R.id.patients);
+		}
     }
 
 	@Override

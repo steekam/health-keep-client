@@ -175,6 +175,7 @@ public class LoginActivity extends AppCompatActivity {
 										.show();
 							} else {
 								// unknown error
+								Timber.e(throwable);
 								toast.show("error", getString(R.string.error_occurred), Gravity.TOP | Gravity.CENTER_HORIZONTAL);
 							}
 						})
