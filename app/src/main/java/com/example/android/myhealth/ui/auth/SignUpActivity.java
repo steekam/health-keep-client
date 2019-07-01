@@ -26,7 +26,7 @@ import com.google.gson.reflect.TypeToken;
 import com.jakewharton.rxbinding3.view.RxView;
 import com.jakewharton.rxbinding3.widget.RxRadioGroup;
 import com.jakewharton.rxbinding3.widget.RxTextView;
-import com.steekam.authentication.CreateAccount;
+import com.steekam.authentication.Authentication;
 
 import java.lang.reflect.Type;
 import java.net.UnknownHostException;
@@ -240,10 +240,10 @@ public class SignUpActivity extends AppCompatActivity {
 		RadioButton clientRadioButton = findViewById(mClientType.getCheckedRadioButtonId());
 		String clientRole = clientRadioButton.getText().toString().toLowerCase();
 
-		CreateAccount createAccount = new CreateAccount(this);
+		Authentication authentication = new Authentication(this);
 
-		disposables.add(createAccount
-				.sendRequest(clientEmail, clientUsername, clientPassword, clientRole)
+		disposables.add(authentication
+				.createAccount(clientEmail, clientUsername, clientPassword, clientRole)
 				.subscribe(clientResponse -> {
 					progressDialog.dismiss();
 					if (clientResponse.isSuccessful()) {

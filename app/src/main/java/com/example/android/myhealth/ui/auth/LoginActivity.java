@@ -22,11 +22,12 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.jakewharton.rxbinding3.view.RxView;
 import com.jakewharton.rxbinding3.widget.RxTextView;
-import com.steekam.authentication.Login;
+import com.steekam.authentication.Authentication;
 import com.steekam.custom_stylings.CustomToast;
 import com.steekam.entities.Client;
 import com.steekam.network.models.ClientDTO;
 
+import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.Objects;
 import java.util.concurrent.Callable;
@@ -145,9 +146,9 @@ public class LoginActivity extends AppCompatActivity {
 		String username = mUsername.getText().toString();
 		String password = mPassword.getText().toString();
 
-		Login login = new Login(this);
+		Authentication authentication = new Authentication(this);
 		disposables.add(
-				login.clientLogin(username, password)
+				authentication.clientLogin(username, password)
 						.map(response -> {
 							progressDialog.dismiss();
 							if (!response.isSuccessful()) throw new Exception(String.valueOf(response.code()));
@@ -165,27 +166,24 @@ public class LoginActivity extends AppCompatActivity {
 						})
 						.flatMap(client -> loginViewModel.saveLoggedInClient(client))
 						.map(Client::role)
-						.subscribe(this::redirectClient, throwable -> {
-							progressDialog.dismiss();
-							CustomToast toast = new CustomToast(getApplicationContext(), this);
-							if (Objects.equals(throwable.getMessage(), "422")) {
-								toast.show("error", getString(R.string.login_invalid_credentials), Gravity.TOP | Gravity.CENTER_HORIZONTAL);
-							} else if (throwable instanceof UnknownHostException) {
-								Snackbar.make(mBtnSignIn, R.string.internet_connection_error, Snackbar.LENGTH_LONG)
-										.show();
-							} else {
-								// unknown error
-								Timber.e(throwable);
-								toast.show("error", getString(R.string.error_occurred), Gravity.TOP | Gravity.CENTER_HORIZONTAL);
-							}
-						})
+						.subscribe(role -> authentication.redirectCient(role.equals("patient") ? PatientNav.class : DoctorNav.class),
+								throwable -> {
+									progressDialog.dismiss();
+									CustomToast toast = new CustomToast(getApplicationContext(), this);
+									if (Objects.equals(throwable.getMessage(), "422")) {
+										toast.show("error", getString(R.string.login_invalid_credentials), Gravity.TOP | Gravity.CENTER_HORIZONTAL);
+									} else if (throwable instanceof UnknownHostException) {
+										Snackbar.make(mBtnSignIn, R.string.internet_connection_error, Snackbar.LENGTH_LONG)
+												.show();
+									} else if (throwable instanceof SocketTimeoutException) {
+										Snackbar.make(mBtnSignIn, R.string.connection_timeout_error, Snackbar.LENGTH_LONG)
+												.show();
+									} else {
+										// unknown error
+										Timber.e(throwable);
+										toast.show("error", getString(R.string.error_occurred), Gravity.TOP | Gravity.CENTER_HORIZONTAL);
+									}
+								})
 		);
-	}
-
-	void redirectClient(String role) {
-		Class redirectTo = role.equals("patient") ? PatientNav.class : DoctorNav.class;
-		Intent intent = new Intent(LoginActivity.this, redirectTo);
-		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-		startActivity(intent);
 	}
 }

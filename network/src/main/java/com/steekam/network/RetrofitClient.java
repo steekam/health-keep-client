@@ -8,6 +8,8 @@ import com.google.gson.GsonBuilder;
 import com.steekam.network.models.AdapterFactory;
 import com.steekam.network.services.ClientService;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -54,6 +56,9 @@ public class RetrofitClient {
 
 	private OkHttpClient provideHTTPClient(Context context) {
 		return new OkHttpClient.Builder()
+				.connectTimeout(10, TimeUnit.SECONDS)
+				.readTimeout(15, TimeUnit.SECONDS)
+				.writeTimeout(15, TimeUnit.SECONDS)
 				.cache(new Cache(context.getCacheDir(), (100 * 1024 * 1024))) // 100 MB cache
 				.addInterceptor(provideApiKeyInterceptor())
 				.addNetworkInterceptor(new StethoInterceptor())

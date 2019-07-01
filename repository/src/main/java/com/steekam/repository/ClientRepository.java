@@ -69,6 +69,12 @@ public class ClientRepository {
 								})).flatMapObservable(this::getUser);
 	}
 
+	public Observable<String> isClientLoggedIn() {
+		long clientId = sharedPreferences.getLong(activityContext.getString(R.string.logged_in_client_key), -1);
+		return (clientId != -1) ? getUser(clientId)
+				.map(Client::role) : Observable.just("");
+	}
+
 	public Completable logout() {
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 		editor.clear();
