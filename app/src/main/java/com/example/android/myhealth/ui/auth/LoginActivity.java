@@ -11,10 +11,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.android.myhealth.BuildConfig;
+import com.example.android.myhealth.BaseActivity;
 import com.example.android.myhealth.R;
 import com.example.android.myhealth.ui.doctors.DoctorNav;
 import com.example.android.myhealth.ui.patients.PatientNav;
@@ -34,12 +33,10 @@ import java.util.concurrent.Callable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
 
-public class LoginActivity extends AppCompatActivity {
-	private final CompositeDisposable disposables = new CompositeDisposable();
+public class LoginActivity extends BaseActivity {
 	//ui views
 	@BindView(R.id.signInUsernameLayout)
 	TextInputLayout mUsernameLayout;
@@ -62,12 +59,9 @@ public class LoginActivity extends AppCompatActivity {
 	}
 
 	void init() {
-		//Timbre init
-		if (BuildConfig.DEBUG) {
-			Timber.plant(new Timber.DebugTree());
-		}
 		//Butterknife
 		ButterKnife.bind(this);
+
 		//Associate view model
 		loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory(getApplication(), this)).get(LoginViewModel.class);
 		// password key listener
@@ -105,12 +99,6 @@ public class LoginActivity extends AppCompatActivity {
 		Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 		startActivity(intent);
-	}
-
-	@Override
-	protected void onDestroy() {
-		disposables.clear();
-		super.onDestroy();
 	}
 
 	void setFieldError(boolean isInvalid, TextInputLayout inputLayout) {
