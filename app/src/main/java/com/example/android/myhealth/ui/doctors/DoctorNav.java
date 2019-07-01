@@ -29,33 +29,36 @@ public class DoctorNav extends AppCompatActivity
 	private final CompositeDisposable disposables = new CompositeDisposable();
 	private DoctorNavViewModel doctorNavViewModel;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_doctor_nav);
-		if (savedInstanceState == null) {
-			getSupportFragmentManager().beginTransaction()
-					.replace(R.id.fragment_frame, new Patients())
-					.commit();
-		}
-		init();
-	}
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_doctor_nav);
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.content_frame, new Patients())
+                    .commit();
+            navigationView.setCheckedItem(R.id.patients);
+        }
 
-	void init() {
-		//view model
-		doctorNavViewModel = ViewModelProviders.of(this, new DoctorNavViewModelFactory(getApplication(), this)).get(DoctorNavViewModel.class);
+        init();
+    }
 
-		Toolbar toolbar = findViewById(R.id.toolbar);
-		setSupportActionBar(toolbar);
-		DrawerLayout drawer = findViewById(R.id.drawer_layout);
-		NavigationView navigationView = findViewById(R.id.nav_view);
-		navigationView.setNavigationItemSelectedListener(this);
+    void init() {
+	    //view model
+	    doctorNavViewModel = ViewModelProviders.of(this, new DoctorNavViewModelFactory(getApplication(), this)).get(DoctorNavViewModel.class);
 
-		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-				this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-		drawer.addDrawerListener(toggle);
-		toggle.syncState();
-	}
+	    Toolbar toolbar = findViewById(R.id.toolbar);
+	    setSupportActionBar(toolbar);
+
+	    DrawerLayout drawer = findViewById(R.id.drawer_layout);
+	    NavigationView navigationView = findViewById(R.id.nav_view);
+	    navigationView.setNavigationItemSelectedListener(this);
+
+	    ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+			    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+	    drawer.addDrawerListener(toggle);
+	    toggle.syncState();
+    }
 
 	@Override
 	public void onBackPressed() {
@@ -95,31 +98,31 @@ public class DoctorNav extends AppCompatActivity
 		int id = item.getItemId();
 		FragmentManager fragmentManager = getSupportFragmentManager();
 
-		if (id == R.id.patients) {
-			fragmentManager.beginTransaction()
-					.replace(R.id.fragment_frame, new Patients())
-					.commit();
-		} else if (id == R.id.chat) {
-			fragmentManager.beginTransaction()
-					.replace(R.id.fragment_frame
-							, new Chat())
-					.commit();
-		} else if (id == R.id.account) {
-			fragmentManager.beginTransaction()
-					.replace(R.id.fragment_frame
-							, new Account())
-					.commit();
-		} else if (id == R.id.logout) {
-			disposables.add(
-					doctorNavViewModel.logout().andThen(
-							(CompletableSource) co -> {
-								Intent intent = new Intent(DoctorNav.this, OnboardingActivity.class);
-								intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-								startActivity(intent);
-							}
-					).subscribe()
-			);
-		}
+        if (id == R.id.patients) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, new Patients())
+                    .commit();
+        } else if (id == R.id.chat) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame
+                            , new Chat())
+                    .commit();
+        } else if (id == R.id.account) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame
+                            , new Account())
+                    .commit();
+        } else if (id == R.id.logout) {
+	        disposables.add(
+			        doctorNavViewModel.logout().andThen(
+					        (CompletableSource) co -> {
+						        Intent intent = new Intent(DoctorNav.this, OnboardingActivity.class);
+						        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+						        startActivity(intent);
+					        }
+			        ).subscribe()
+	        );
+        }
 
 		DrawerLayout drawer = findViewById(R.id.drawer_layout);
 		drawer.closeDrawer(GravityCompat.START);

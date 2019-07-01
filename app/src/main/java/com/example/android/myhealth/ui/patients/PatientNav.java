@@ -15,13 +15,16 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.android.myhealth.R;
-import com.example.android.myhealth.ui.doctors.mFragments.Account;
-import com.example.android.myhealth.ui.doctors.mFragments.Chat;
 import com.example.android.myhealth.ui.doctors.mFragments.Patients;
 import com.example.android.myhealth.ui.onboarding.OnboardingActivity;
+import com.example.android.myhealth.ui.patients.mFragments.Account;
 import com.example.android.myhealth.ui.patients.mFragments.Appointments;
+import com.example.android.myhealth.ui.patients.mFragments.Chat;
+import com.example.android.myhealth.ui.patients.mFragments.Dashboard;
 import com.example.android.myhealth.ui.patients.mFragments.Prescriptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 import io.reactivex.CompletableSource;
 import io.reactivex.disposables.CompositeDisposable;
@@ -37,9 +40,9 @@ public class PatientNav extends AppCompatActivity
 		setContentView(R.layout.activity_patient_nav);
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
-					.replace(R.id.fragment_frame, new Patients())
+					.replace(R.id.fragment_frame, new Dashboard())
 					.commit();
-//			navigationView.setCheckedItem(R.id.chat);
+			navigationView.setCheckedItem(R.id.dashboard);
 		}
 		init();
 	}
@@ -50,7 +53,17 @@ public class PatientNav extends AppCompatActivity
 
 		Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
+		toolbar = (Toolbar) findViewById(R.id.toolbar);
+		if (toolbar != null) {
+			setSupportActionBar(toolbar);
+		}
+
+		FloatingActionButton fab = findViewById(R.id.fab);
+		fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+				.setAction("Action", null).show());
+
 		DrawerLayout drawer = findViewById(R.id.drawer_layout);
+		toolbar = (Toolbar) findViewById(R.id.toolbar);
 		NavigationView navigationView = findViewById(R.id.nav_view);
 		navigationView.setNavigationItemSelectedListener(this);
 
@@ -95,6 +108,7 @@ public class PatientNav extends AppCompatActivity
 	@Override
 	public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+		item.setChecked(true);
 		int id = item.getItemId();
 		FragmentManager fragmentManager = getSupportFragmentManager();
 
@@ -112,6 +126,11 @@ public class PatientNav extends AppCompatActivity
 			fragmentManager.beginTransaction()
 					.replace(R.id.fragment_frame
 							, new Prescriptions())
+					.commit();
+		} else if (id == R.id.dashboard) {
+			fragmentManager.beginTransaction()
+					.replace(R.id.fragment_frame
+							, new Dashboard())
 					.commit();
 		} else if (id == R.id.account) {
 			fragmentManager.beginTransaction()

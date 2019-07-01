@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.android.myhealth.R;
@@ -16,6 +17,8 @@ public class Chat extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.patient_chat, container,false);
+        View view = inflater.inflate(R.layout.patient_chat, container,false);
+        ((AppCompatActivity) getActivity()).setTitle("Chat");
+        return view;
     }
 }
