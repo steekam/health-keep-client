@@ -14,8 +14,8 @@ import android.widget.RadioGroup;
 
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.android.myhealth.BaseActivity;
 import com.example.android.myhealth.R;
+import com.example.android.myhealth.base.BaseActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;

@@ -13,8 +13,8 @@ import android.widget.EditText;
 
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.android.myhealth.BaseActivity;
 import com.example.android.myhealth.R;
+import com.example.android.myhealth.base.BaseActivity;
 import com.example.android.myhealth.ui.doctors.DoctorNav;
 import com.example.android.myhealth.ui.patients.PatientNav;
 import com.google.android.material.snackbar.Snackbar;
@@ -173,5 +173,10 @@ public class LoginActivity extends BaseActivity {
 									}
 								})
 		);
+	}
+
+	public void launchForgotPassword(View view) {
+		Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+		startActivity(intent);
 	}
 }
