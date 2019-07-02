@@ -4,10 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.android.myhealth.R;
+import com.example.android.myhealth.base.BaseActivity;
 import com.example.android.myhealth.ui.onboarding.OnboardingActivity;
 import com.example.android.myhealth.ui.patients.mFragments.Account;
 import com.example.android.myhealth.ui.patients.mFragments.Appointments;
@@ -25,13 +26,25 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
-import io.reactivex.CompletableSource;
-import io.reactivex.disposables.CompositeDisposable;
+import java.util.Objects;
 
-public class PatientNav extends AppCompatActivity
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import io.reactivex.CompletableSource;
+
+public class PatientNav extends BaseActivity
 		implements NavigationView.OnNavigationItemSelectedListener {
-	private final CompositeDisposable disposables = new CompositeDisposable();
+	//views
+	@BindView(R.id.fab)
+	FloatingActionButton fab;
+	@BindView(R.id.toolbar)
+	Toolbar toolbar;
+	@BindView(R.id.drawer_layout)
+	DrawerLayout drawerLayout;
+	@BindView(R.id.nav_view)
+	NavigationView navigationView;
 	private PatientNavViewModel patientNavViewModel;
+	private FragmentManager fragmentManager = getSupportFragmentManager();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,43 +54,34 @@ public class PatientNav extends AppCompatActivity
 	}
 
 	void init(Bundle savedInstanceState) {
+		// Butter knife
+		ButterKnife.bind(this);
+
 		//view model
 		patientNavViewModel = ViewModelProviders.of(this, new PatientNavViewModelFactory(getApplication(), this)).get(PatientNavViewModel.class);
 
-		Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
-		toolbar = findViewById(R.id.toolbar);
-		if (toolbar != null) {
-			setSupportActionBar(toolbar);
-		}
 
-		FloatingActionButton fab = findViewById(R.id.fab);
-		fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-				.setAction("Action", null).show());
+		//TODO: Check on this
+		fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).show());
 
-		DrawerLayout drawer = findViewById(R.id.drawer_layout);
-		toolbar = findViewById(R.id.toolbar);
-		NavigationView navigationView = findViewById(R.id.nav_view);
 		navigationView.setNavigationItemSelectedListener(this);
 
 		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-				this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-		drawer.addDrawerListener(toggle);
+				this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+		drawerLayout.addDrawerListener(toggle);
 		toggle.syncState();
 
 		if (savedInstanceState == null) {
-			getSupportFragmentManager().beginTransaction()
-					.replace(R.id.fragment_frame, new Dashboard())
-					.commit();
 			navigationView.setCheckedItem(R.id.dashboard);
+			switchFragment(R.id.dashboard);
 		}
 	}
 
 	@Override
 	public void onBackPressed() {
-		DrawerLayout drawer = findViewById(R.id.drawer_layout);
-		if (drawer.isDrawerOpen(GravityCompat.START)) {
-			drawer.closeDrawer(GravityCompat.START);
+		if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+			drawerLayout.closeDrawer(GravityCompat.START);
 		} else {
 			super.onBackPressed();
 		}
@@ -107,56 +111,70 @@ public class PatientNav extends AppCompatActivity
 
 	@Override
 	public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
 		item.setChecked(true);
-		int id = item.getItemId();
-		FragmentManager fragmentManager = getSupportFragmentManager();
-
-		if (id == R.id.appointments) {
-			fragmentManager.beginTransaction()
-					.replace(R.id.fragment_frame
-							, new Appointments())
-					.commit();
-		} else if (id == R.id.chat) {
-			fragmentManager.beginTransaction()
-					.replace(R.id.fragment_frame
-							, new Chat())
-					.commit();
-		} else if (id == R.id.prescriptions) {
-			fragmentManager.beginTransaction()
-					.replace(R.id.fragment_frame
-							, new Prescriptions())
-					.commit();
-		} else if (id == R.id.dashboard) {
-			fragmentManager.beginTransaction()
-					.replace(R.id.fragment_frame
-							, new Dashboard())
-					.commit();
-		} else if (id == R.id.account) {
-			fragmentManager.beginTransaction()
-					.replace(R.id.fragment_frame
-							, new Account())
-					.commit();
-		} else if (id == R.id.logout) {
-			disposables.add(
-					patientNavViewModel.logout().andThen(
-							(CompletableSource) co -> {
-								Intent intent = new Intent(PatientNav.this, OnboardingActivity.class);
-								intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-								startActivity(intent);
-							}
-					).subscribe()
-			);
-		}
-
-		DrawerLayout drawer = findViewById(R.id.drawer_layout);
-		drawer.closeDrawer(GravityCompat.START);
+		switchFragment(item.getItemId());
+		drawerLayout.closeDrawer(GravityCompat.START);
 		return true;
 	}
 
-	@Override
-	protected void onDestroy() {
-		disposables.clear();
-		super.onDestroy();
+	private void switchFragment(int menuItemId) {
+		String actionBarTitle = "";
+		switch (menuItemId) {
+			case R.id.appointments:
+				fragmentManager.beginTransaction()
+						.replace(R.id.fragment_frame
+								, new Appointments(R.layout.patient_appointments))
+						.commit();
+				fab.setVisibility(View.VISIBLE);
+				actionBarTitle = getString(R.string.appointments);
+				break;
+			case R.id.chat:
+				fragmentManager.beginTransaction()
+						.replace(R.id.fragment_frame
+								, new Chat(R.layout.patient_chat))
+						.commit();
+				fab.setVisibility(View.VISIBLE);
+				actionBarTitle = getString(R.string.chat);
+				break;
+			case R.id.prescriptions:
+				fragmentManager.beginTransaction()
+						.replace(R.id.fragment_frame
+								, new Prescriptions(R.layout.patient_prescriptions))
+						.commit();
+				actionBarTitle = getString(R.string.prescriptions);
+				fab.setVisibility(View.VISIBLE);
+				break;
+			case R.id.dashboard:
+				fragmentManager.beginTransaction()
+						.replace(R.id.fragment_frame
+								, new Dashboard(R.layout.patient_dashboard))
+						.commit();
+				fab.setVisibility(View.INVISIBLE);
+				actionBarTitle = getString(R.string.dashboard);
+				break;
+			case R.id.account:
+				fragmentManager.beginTransaction()
+						.replace(R.id.fragment_frame
+								, new Account(R.layout.patient_account))
+						.commit();
+				fab.setVisibility(View.INVISIBLE);
+				actionBarTitle = getString(R.string.account);
+				break;
+			case R.id.logout:
+				disposables.add(
+						patientNavViewModel.logout().andThen(
+								(CompletableSource) co -> {
+									Intent intent = new Intent(PatientNav.this, OnboardingActivity.class);
+									intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+									startActivity(intent);
+								}
+						).subscribe()
+				);
+				actionBarTitle = getString(R.string.logout);
+				break;
+		}
+		// set new title
+		Objects.requireNonNull(getSupportActionBar()).setTitle(actionBarTitle);
 	}
+
 }

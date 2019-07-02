@@ -22,11 +22,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.doctors.DoctorNav"
-            android:label="@string/title_activity_my_dashboard"
+            android:label="@string/title_activity_dashboard"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.patients.PatientNav"
-            android:label="@string/title_activity_my_dashboard"
+            android:label="@string/title_activity_dashboard"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.onboarding.OnboardingActivity"

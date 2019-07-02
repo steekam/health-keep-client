@@ -1,10 +1,7 @@
 package com.example.android.myhealth.ui.patients.mFragments;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,20 +13,14 @@ import com.example.android.myhealth.base.BaseFragment;
 import com.example.android.myhealth.ui.patients.mRecycler.AppointmentsAdapter;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Appointments extends BaseFragment {
 
-	private TextView mdoctor, mdate, mtime;
 	private ArrayList<appointments_data> appoint = new ArrayList<>();
 	private AppointmentsAdapter adapter = new AppointmentsAdapter(appoint);
 
-	@Nullable
-	@Override
-	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.patient_appointments, container, false);
-		Objects.requireNonNull(getActivity()).setTitle("Appointments");
-		return rootView;
+	public Appointments(int mContentLayoutId) {
+		super(mContentLayoutId);
 	}
 
 	@Override
@@ -38,9 +29,6 @@ public class Appointments extends BaseFragment {
 
 		//REFERENCE
 		RecyclerView rv = view.findViewById(R.id.rvappointments);
-		mdoctor = view.findViewById(R.id.dr);
-		mdate = view.findViewById(R.id.date);
-		mtime = view.findViewById(R.id.time);
 
 		//LAYOUT MANAGER
 		rv.setLayoutManager(new LinearLayoutManager((getActivity())));

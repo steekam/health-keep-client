@@ -52,4 +52,5 @@
         <item name="android:textColorHint">@color/colorPrimary</item>
     </style>
 
+    <!--Card view-->
 </resources>

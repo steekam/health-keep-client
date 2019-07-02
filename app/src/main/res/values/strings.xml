@@ -36,8 +36,7 @@
     <string name="signin_activity_title">Sign in</string>
     <string name="forgot_password_prompt">Forgot password?</string>
     <string name="no_account">Don\'t have an account?</string>
-    <string name="title_activity_patient_dashboard">My Dashboard</string>
-    <string name="title_activity_my_dashboard">My Dashboard</string>
+    <string name="title_activity_dashboard">Dashboard</string>
     <string name="appointments">Appointments</string>
     <string name="prescriptions">Prescriptions</string>
     <string name="chat">Chat</string>
@@ -90,4 +89,13 @@
     <string name="login_invalid_credentials">Invalid credentials</string>
     <string name="error_occurred">An error occurred</string>
     <string name="connection_timeout_error">Connection timeout. Try again</string>
+    <string name="personal_details_card_title">Personal Details</string>
+    <string name="edit_option">edit</string>
+    <string name="save_option">save</string>
+    <string name="username_hint_allcaps">USERNAME</string>
+    <string name="email_hint_allcaps">EMAIL</string>
+    <string name="change_password_card_title">reset password</string>
+    <string name="reset_password_option">reset</string>
+    <string name="account_old_password_hint">Old password</string>
+    <string name="account_new_password_hint">New password</string>
 </resources>
