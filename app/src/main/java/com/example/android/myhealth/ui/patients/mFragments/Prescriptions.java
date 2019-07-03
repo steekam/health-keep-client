@@ -1,21 +1,37 @@
 package com.example.android.myhealth.ui.patients.mFragments;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.myhealth.R;
+import com.example.android.myhealth.base.BaseFragment;
+import com.example.android.myhealth.ui.doctors.mRecycler.MyAdapter;
 
-public class Prescriptions extends Fragment {
+public class Prescriptions extends BaseFragment {
+	private static final String[] appoint = {"Panadol", "Paracetamol", "Eno", "Antacid"};
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.patient_prescriptions, container,false);
-    }
+	public Prescriptions() {
+	}
+
+	public Prescriptions(int mContentLayoutId) {
+		super(mContentLayoutId);
+	}
+
+	@Override
+	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+		//REFERENCE
+		RecyclerView rv = view.findViewById(R.id.rvprescriptions);
+
+		//LAYOUT MANAGER
+		rv.setLayoutManager(new LinearLayoutManager((getActivity())));
+
+		//ADAPTER
+		rv.setAdapter(new MyAdapter(getActivity(), appoint));
+	}
 }

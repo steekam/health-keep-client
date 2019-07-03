@@ -1,46 +1,72 @@
 package com.example.android.myhealth.ui.patients.mFragments;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.myhealth.R;
-import com.example.android.myhealth.ui.doctors.mFragments.Patients;
-import com.example.android.myhealth.ui.doctors.mRecycler.MyAdapter;
+import com.example.android.myhealth.base.BaseFragment;
+import com.example.android.myhealth.ui.patients.mRecycler.AppointmentsAdapter;
 
-public class Appointments extends Fragment {
-    private static final String[] appoint = {"Dr. A.N. Other", "Dr. John Doe", "Dr. Jane Doe", "Dr. K. L. Mao"};
+import java.util.ArrayList;
 
-    public static Patients newInstance(){
-        return new Patients();
-    }
+public class Appointments extends BaseFragment {
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.patient_appointments,null);
+	private ArrayList<appointments_data> appoint = new ArrayList<>();
+	private AppointmentsAdapter adapter = new AppointmentsAdapter(appoint);
 
-        //REFERENCE
-        RecyclerView rv = rootView.findViewById(R.id.rvappointments);
+	public Appointments(int mContentLayoutId) {
+		super(mContentLayoutId);
+	}
 
-        //LAYOUT MANAGER
-        rv.setLayoutManager(new LinearLayoutManager((getActivity())));
+	@Override
+	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
 
-        //ADAPTER
-        rv.setAdapter(new MyAdapter(getActivity(),appoint));
+		//REFERENCE
+		RecyclerView rv = view.findViewById(R.id.rvappointments);
 
-        return rootView;
-    }
+		//LAYOUT MANAGER
+		rv.setLayoutManager(new LinearLayoutManager((getActivity())));
 
-    @NonNull
-    public String toString(){
-        return "patient";
-    }
+		//ADAPTER
+		rv.setHasFixedSize(true);
+		rv.setAdapter(adapter);
+
+		appoint.add(
+				new appointments_data(
+						"Dr. John Doe", "25th May", "18:00"
+				)
+		);
+		appoint.add(
+				new appointments_data(
+						"Dr. Jane Doe", "30th May", "18:00"
+				)
+		);
+		appoint.add(
+				new appointments_data(
+						"Dr. Janet Doe", "5th June", "10:00"
+				)
+		);
+		appoint.add(
+				new appointments_data(
+						"Dr. Grey", "15th June", "12:00"
+				)
+		);
+		appoint.add(
+				new appointments_data(
+						"Dr. Black", "5th July", "09:00"
+				)
+		);
+		appoint.add(
+				new appointments_data(
+						"Dr. Blue", "15th July", "07:00"
+				)
+		);
+
+	}
 }

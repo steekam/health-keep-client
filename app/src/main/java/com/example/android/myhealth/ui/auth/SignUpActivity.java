@@ -12,11 +12,10 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.android.myhealth.BuildConfig;
 import com.example.android.myhealth.R;
+import com.example.android.myhealth.base.BaseActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
@@ -26,24 +25,23 @@ import com.google.gson.reflect.TypeToken;
 import com.jakewharton.rxbinding3.view.RxView;
 import com.jakewharton.rxbinding3.widget.RxRadioGroup;
 import com.jakewharton.rxbinding3.widget.RxTextView;
-import com.steekam.authentication.CreateAccount;
+import com.steekam.authentication.Authentication;
 
 import java.lang.reflect.Type;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.Callable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.Observable;
-import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import okhttp3.ResponseBody;
 import retrofit2.HttpException;
 import timber.log.Timber;
 
-public class SignUpActivity extends AppCompatActivity {
-	private final CompositeDisposable disposables = new CompositeDisposable();
+public class SignUpActivity extends BaseActivity {
 	// Views
 	@BindView(R.id.signUpUsername)
 	EditText mUsernameInput;
@@ -75,14 +73,10 @@ public class SignUpActivity extends AppCompatActivity {
 	}
 
 	private void init() {
-		//Timbre init
-		if (BuildConfig.DEBUG) {
-			Timber.plant(new Timber.DebugTree());
-		}
 		//Butterknife
 		ButterKnife.bind(this);
 
-		// associate viewmodel
+		// associate view model
 		signupViewModel = ViewModelProviders.of(this).get(SignUpViewModel.class);
 
 		// password key listener
@@ -96,81 +90,24 @@ public class SignUpActivity extends AppCompatActivity {
 			} else return false;
 		});
 
-		//Observables
-		Observable<Boolean> emailObservable = RxView.focusChanges(mEmailInput)
-				.skipInitialValue()
-				.map(hasFocus -> {
-					if (!hasFocus)
-						validateEmail(signupViewModel.isEmailValid(mEmailInput.getText().toString()));
-					return hasFocus;
-				})
-				.flatMap(hasFocus -> RxTextView.textChanges(mEmailInput)
-						.skipInitialValue()
-						.map(sequence -> {
-							if (hasFocus && mEmailLayout.isErrorEnabled()) mEmailLayout.setErrorEnabled(false);
-							return hasFocus;
-						})
-						.skipWhile(__ -> hasFocus)
-						.doOnEach(__ -> validateEmail(signupViewModel.isEmailValid(mEmailInput.getText().toString())))
-				);
-		Observable<Boolean> passwordObservable = RxView.focusChanges(mPasswordInput)
-				.skipInitialValue()
-				.map(hasFocus -> {
-					if (!hasFocus)
-						validatePassword(signupViewModel.isPasswordValid(mPasswordInput.getText().toString()));
-					return hasFocus;
-				})
-				.flatMap(hasFocus -> RxTextView.textChanges(mPasswordInput)
-						.skipInitialValue()
-						.map(sequence -> {
-							if (hasFocus && mPasswordLayout.isErrorEnabled())
-								mPasswordLayout.setErrorEnabled(false);
-							return hasFocus;
-						})
-						.skipWhile(__ -> hasFocus)
-						.doOnEach(__ -> validatePassword(signupViewModel.isPasswordValid(mPasswordInput.getText().toString())))
-				);
-		Observable<Boolean> usernameObservable = RxView.focusChanges(mUsernameInput)
-				.skipInitialValue()
-				.map(hasFocus -> {
-					if (!hasFocus)
-						validateUsername(signupViewModel.isUsernameValid(mUsernameInput.getText().toString()));
-					return hasFocus;
-				}).flatMap(hasFocus -> RxTextView.textChanges(mUsernameInput)
-						.skipInitialValue()
-						.map(sequence -> {
-							if (hasFocus && mUsernameLayout.isErrorEnabled())
-								mUsernameLayout.setErrorEnabled(false);
-							return hasFocus;
-						})
-						.skipWhile(__ -> hasFocus)
-						.doOnEach(__ -> validateUsername(signupViewModel.isUsernameValid(mUsernameInput.getText().toString())))
-				);
-		Observable<Integer> clientTypeObservable = RxRadioGroup.checkedChanges(mClientType)
-				.skipInitialValue();
-
-		disposables.addAll(emailObservable.subscribe(),
-				passwordObservable.subscribe(),
-				usernameObservable.subscribe(),
-				clientTypeObservable.subscribe(this::validateClientType),
+		disposables.addAll(
+				validateField(mEmailLayout, mEmailInput, () -> {
+					setFieldError(!signupViewModel.isEmailValid(mEmailInput.getText()), mEmailLayout, R.string.signup_email_error);
+					return null;
+				}),
+				validateField(mPasswordLayout, mPasswordInput, () -> {
+					setFieldError(!signupViewModel.isPasswordValid(mPasswordInput.getText()), mPasswordLayout, R.string.signup_password_error);
+					return null;
+				}),
+				validateField(mUsernameLayout, mUsernameInput, () -> {
+					setFieldError(!signupViewModel.isUsernameValid(mUsernameInput.getText()), mUsernameLayout, R.string.required_field_error);
+					return null;
+				}),
+				RxRadioGroup.checkedChanges(mClientType)
+						.skipInitialValue().subscribe(this::validateClientType),
 				signupViewModel.validForm()
 						.subscribe(validForm -> mBtnSignup.setEnabled(validForm))
 		);
-	}
-
-	private void validateEmail(Boolean isValid) {
-		mEmailLayout.setError(isValid ? null : getResources().getString(R.string.signup_email_error));
-		mEmailLayout.setErrorEnabled(!isValid);
-	}
-
-	private void validatePassword(Boolean isValid) {
-		mPasswordLayout.setError(isValid ? null : getResources().getString(R.string.signup_password_error));
-		mPasswordLayout.setErrorEnabled(!isValid);
-	}
-
-	private void validateUsername(Boolean isValid) {
-		mUsernameLayout.setError(isValid ? null : getResources().getString(R.string.signup_username_error));
-		mUsernameLayout.setErrorEnabled(!isValid);
 	}
 
 	private void validateClientType(Integer integer) {
@@ -183,12 +120,6 @@ public class SignUpActivity extends AppCompatActivity {
 			signupViewModel.clienTypeRelay.accept(true);
 		}
 		signupViewModel.changeValidFormRelay();
-	}
-
-	@Override
-	protected void onDestroy() {
-		disposables.clear();
-		super.onDestroy();
 	}
 
 	public void launchlogin(View view) {
@@ -230,6 +161,30 @@ public class SignUpActivity extends AppCompatActivity {
 		inputLayout.setErrorEnabled(false);
 	}
 
+	void setFieldError(boolean isInvalid, TextInputLayout inputLayout, int stringId) {
+		inputLayout.setErrorEnabled(isInvalid);
+		inputLayout.setError(isInvalid ? getResources().getString(stringId) : null);
+	}
+
+	Disposable validateField(TextInputLayout inputLayout, EditText editText, Callable<Void> validation) {
+		return RxView.focusChanges(editText)
+				.skipInitialValue()
+				.map(hasFocus -> {
+					if (!hasFocus) validation.call();
+					return hasFocus;
+				})
+				.flatMap(hasFocus -> RxTextView.textChanges(editText)
+						.skipInitialValue()
+						.map(sequence -> {
+							if (hasFocus && inputLayout.isErrorEnabled())
+								inputLayout.setErrorEnabled(false);
+							return hasFocus;
+						})
+						.skipWhile(__ -> hasFocus)
+						.doOnEach(__ -> validation.call())
+				).subscribe();
+	}
+
 	public void createAccount(View view) {
 		progressDialog = new ProgressDialog(SignUpActivity.this);
 		progressDialog.setMessage("Creating account...");
@@ -240,10 +195,9 @@ public class SignUpActivity extends AppCompatActivity {
 		RadioButton clientRadioButton = findViewById(mClientType.getCheckedRadioButtonId());
 		String clientRole = clientRadioButton.getText().toString().toLowerCase();
 
-		CreateAccount createAccount = new CreateAccount(this);
+		Authentication authentication = new Authentication(this);
 
-		disposables.add(createAccount
-				.sendRequest(clientEmail, clientUsername, clientPassword, clientRole)
+		disposables.add(authentication.createAccount(clientEmail, clientUsername, clientPassword, clientRole)
 				.subscribe(clientResponse -> {
 					progressDialog.dismiss();
 					if (clientResponse.isSuccessful()) {

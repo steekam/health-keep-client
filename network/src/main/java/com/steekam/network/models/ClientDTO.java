@@ -10,9 +10,9 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 @AutoValue
-public abstract class Client {
-	public static TypeAdapter<Client> typeAdapter(Gson gson) {
-		return new AutoValue_Client.GsonTypeAdapter(gson);
+public abstract class ClientDTO {
+	static TypeAdapter<ClientDTO> typeAdapter(Gson gson) {
+		return new AutoValue_ClientDTO.GsonTypeAdapter(gson);
 	}
 
 	@SerializedName("client_id")

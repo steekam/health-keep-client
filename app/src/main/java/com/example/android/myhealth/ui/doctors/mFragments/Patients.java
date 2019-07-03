@@ -16,7 +16,7 @@ import com.example.android.myhealth.ui.doctors.mRecycler.MyAdapter;
 
 public class Patients extends Fragment {
 
-    private static final String[] appoint = {"Jane Doe", "John Doe", "Meridith Grey", "Melvin Grey", "Gerald Butler", "Katniss Everdine", "Orange is the new black"};
+    public static final String[] appoint = {"Jane Doe", "John Doe", "Meridith Grey", "Melvin Grey", "Gerald Butler", "Katniss Everdine", "Orange is the new black"};
 
     public static Patients newInstance(){
         return new Patients();

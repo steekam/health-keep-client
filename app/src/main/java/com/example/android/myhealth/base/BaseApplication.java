@@ -1,4 +1,4 @@
-package com.example.android.myhealth;
+package com.example.android.myhealth.base;
 
 import android.app.Application;
 

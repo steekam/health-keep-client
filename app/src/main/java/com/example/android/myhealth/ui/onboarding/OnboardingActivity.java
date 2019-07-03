@@ -14,8 +14,16 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.android.myhealth.R;
 import com.example.android.myhealth.ui.auth.LoginActivity;
 import com.example.android.myhealth.ui.auth.SignUpActivity;
+import com.example.android.myhealth.ui.doctors.DoctorNav;
+import com.example.android.myhealth.ui.patients.PatientNav;
+import com.steekam.authentication.Authentication;
+import com.steekam.repository.ClientRepository;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class OnboardingActivity extends FragmentActivity {
+	private final CompositeDisposable disposables = new CompositeDisposable();
+
 	private LinearLayout mDotLayout;
 	private TextView[] mdots;
 	private Button join;
@@ -44,6 +52,8 @@ public class OnboardingActivity extends FragmentActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		loggedInCheck();
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		ViewPager pager = findViewById(R.id.pager);
@@ -79,15 +89,34 @@ public class OnboardingActivity extends FragmentActivity {
 		}
 	}
 
-	public void launchlogin(View view){
+	public void launchLogin(View view) {
 		Intent intent = new Intent(OnboardingActivity.this, LoginActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 		startActivity(intent);
 	}
 
-	public void launchsignup(View view){
+	public void launchSignUp(View view) {
 		Intent intent = new Intent(OnboardingActivity.this, SignUpActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 		startActivity(intent);
+	}
+
+	private void loggedInCheck() {
+		ClientRepository clientRepository = new ClientRepository(getApplication(), this);
+		disposables.add(
+				clientRepository.isClientLoggedIn()
+						.subscribe(role -> {
+							if (!role.equals("")) {
+								Authentication authentication = new Authentication(this);
+								authentication.redirectCient(role.equals("patient") ? PatientNav.class : DoctorNav.class);
+							}
+						})
+		);
+	}
+
+	@Override
+	protected void onDestroy() {
+		disposables.clear();
+		super.onDestroy();
 	}
 }

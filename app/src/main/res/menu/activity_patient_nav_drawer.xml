@@ -5,9 +5,13 @@
 
     <group android:checkableBehavior="single">
         <item
-        android:id="@+id/appointments"
-        android:icon="@drawable/ic_appointment"
-        android:title="@string/appointments" />
+            android:id="@+id/dashboard"
+            android:icon="@drawable/ic_dashboard"
+            android:title="@string/dashboard" />
+        <item
+            android:id="@+id/appointments"
+            android:icon="@drawable/ic_appointment"
+            android:title="@string/appointments" />
         <item
             android:id="@+id/prescriptions"
             android:icon="@drawable/ic_prescriptions"
@@ -17,21 +21,22 @@
             android:icon="@drawable/ic_mail"
             android:title="@string/chat" />
 
+
+        <item android:title="@string/personal">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/account"
+                        android:icon="@drawable/ic_user"
+                        android:title="@string/account" />
+
+                    <item
+                        android:id="@+id/logout"
+                        android:icon="@drawable/ic_arrow_back"
+                        android:title="@string/logout" />
+                </group>
+            </menu>
+        </item>
     </group>
-
-    <item android:title="@string/personal">
-        <menu>
-
-            <item
-                android:id="@+id/account"
-                android:icon="@drawable/ic_user"
-                android:title="@string/account" />
-
-            <item
-                android:id="@+id/logout"
-                android:icon="@drawable/ic_arrow_back"
-                android:title="@string/logout" />
-        </menu>
-    </item>
 
 </menu>
