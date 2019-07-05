@@ -20,4 +20,5 @@
     <dimen name="s20">20.00sp</dimen>
     <dimen name="nav_bar_icon_width">90dp</dimen>
     <dimen name="nav_bar_icon_height">90dp</dimen>
+    <dimen name="account_card_elevation">5dp</dimen>
 </resources>

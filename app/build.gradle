@@ -9,6 +9,9 @@ android {
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
     }
     buildTypes {
         release {
@@ -42,6 +45,8 @@ dependencies {
 
     // ButterKnife
     implementation "com.jakewharton:butterknife:$butterKnifeVersion"
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 //    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 

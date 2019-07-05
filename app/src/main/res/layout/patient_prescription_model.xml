@@ -26,7 +26,7 @@
                 android:paddingLeft="5dp"
                 android:paddingTop="7dp"
                 android:textSize="20sp"
-                android:text="Hour"
+                android:text="@string/time"
                 android:textColor="@color/black"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
@@ -39,7 +39,7 @@
                 android:paddingLeft="5dp"
                 android:paddingTop="3dp"
                 android:textSize="15sp"
-                android:text="Medicine"
+                android:text="@string/medicine"
                 android:layout_below="@+id/hour"
                 android:textColor="@color/black"
                 android:layout_marginLeft="10dp"
@@ -53,7 +53,7 @@
                 android:layout_alignBottom="@id/medicine"
                 android:layout_alignParentRight="true"
                 android:paddingRight="15dp"
-                android:text="Dosage"
+                android:text="@string/dosage"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
 
