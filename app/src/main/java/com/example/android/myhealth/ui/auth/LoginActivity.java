@@ -22,6 +22,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.jakewharton.rxbinding3.view.RxView;
 import com.jakewharton.rxbinding3.widget.RxTextView;
 import com.steekam.authentication.Authentication;
+import com.steekam.authentication.UnverifiedException;
 import com.steekam.custom_stylings.CustomToast;
 import com.steekam.entities.Client;
 import com.steekam.network.models.ClientDTO;
@@ -143,12 +144,14 @@ public class LoginActivity extends BaseActivity {
 							ClientDTO clientDTO = response.body();
 							assert clientDTO != null;
 							String role = clientDTO.rolesList().get(0).roleName();
+							boolean verified = clientDTO.emailVerifiedAt() != null;
+							if (!verified) throw new UnverifiedException();
 							return Client.create(
 									clientDTO.clientId(),
 									clientDTO.username(),
 									clientDTO.email(),
 									role,
-									!Objects.requireNonNull(clientDTO.emailVerifiedAt()).isEmpty(),
+									true,
 									true
 							);
 						})
@@ -166,6 +169,8 @@ public class LoginActivity extends BaseActivity {
 									} else if (throwable instanceof SocketTimeoutException) {
 										Snackbar.make(mBtnSignIn, R.string.connection_timeout_error, Snackbar.LENGTH_LONG)
 												.show();
+									} else if (throwable instanceof UnverifiedException) {
+										toast.show("error", throwable.getMessage(), Gravity.TOP | Gravity.CENTER_HORIZONTAL);
 									} else {
 										// unknown error
 										Timber.e(throwable);

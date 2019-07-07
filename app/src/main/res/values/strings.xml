@@ -83,7 +83,7 @@
     <string name="signup_client_type_error">Choose one</string>
 
     <string name="signup_success">A verification link has been sent to your email. Verify your account to login.</string>
-    <string name="signup_error">Oops! Something ain\'t right </string>
+    <string name="general_error">Oops! Something ain\'t right. Trg again later </string>
 
     <string name="required_field_error">Required field</string>
     <string name="login_invalid_credentials">Invalid credentials</string>
@@ -91,6 +91,7 @@
     <string name="connection_timeout_error">Connection timeout. Try again</string>
     <string name="personal_details_card_title">Personal Details</string>
     <string name="edit_option">edit</string>
+    <string name="cancel_option">@android:string/cancel</string>
     <string name="save_option">save</string>
     <string name="username_hint_allcaps">USERNAME</string>
     <string name="email_hint_allcaps">EMAIL</string>
@@ -98,4 +99,9 @@
     <string name="reset_password_option">reset</string>
     <string name="account_old_password_hint">Old password</string>
     <string name="account_new_password_hint">New password</string>
+    <string name="account_update_progress_title">ACCOUNT UPDATING</string>
+    <string name="please_wait_msg">Please wait…</string>
+    <string name="account_updated">Account updated successfully</string>
+    <string name="account_update_password_progress_title">PASSWORD UPDATING</string>
+    <string name="password_updated_success">Account password updated</string>
 </resources>

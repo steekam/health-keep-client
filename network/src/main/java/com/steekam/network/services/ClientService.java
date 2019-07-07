@@ -8,6 +8,8 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface ClientService {
 
@@ -29,5 +31,21 @@ public interface ClientService {
 			@Field("password") String password
 	);
 
-	//TODO: add update and delete endpoints
+	@Headers({"Accept: application/json", "Content-Type: application/x-www-form-urlencoded"})
+	@PUT("clients/{clientId}")
+	@FormUrlEncoded
+	Observable<Response<ClientDTO>> updateClient(
+			@Path("clientId") long client,
+			@Field("username") String username,
+			@Field("email") String email
+	);
+
+	@Headers({"Accept: application/json", "Content-Type: application/x-www-form-urlencoded"})
+	@PUT("clients/password_change/{clientId}")
+	@FormUrlEncoded
+	Observable<Response<ClientDTO>> updateClientPassword(
+			@Path("clientId") long client,
+			@Field("old_password") String oldPassword,
+			@Field("new_password") String newPassword
+	);
 }

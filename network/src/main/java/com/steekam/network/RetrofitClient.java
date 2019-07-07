@@ -20,8 +20,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class RetrofitClient {
-	private final static String BASEURL = "http://health-keep-server.herokuapp.com/api/v1/";
-	//	private  final static  String BASEURL = "https://1a8d90ba.ngrok.io/api/v1/";
+	//	private final static String BASEURL = "http://health-keep-server.herokuapp.com/api/v1/";
+	private final static String BASEURL = "http://93fe9d0c.ngrok.io/api/v1/";
 	private static RetrofitClient INSTANCE;
 	private final ClientService clientService;
 

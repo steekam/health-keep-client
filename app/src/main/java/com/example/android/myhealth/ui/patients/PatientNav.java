@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -17,7 +18,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.android.myhealth.R;
 import com.example.android.myhealth.base.BaseActivity;
 import com.example.android.myhealth.ui.onboarding.OnboardingActivity;
-import com.example.android.myhealth.ui.patients.mFragments.Account;
+import com.example.android.myhealth.ui.patients.account.Account;
 import com.example.android.myhealth.ui.patients.mFragments.Appointments;
 import com.example.android.myhealth.ui.patients.mFragments.Chat;
 import com.example.android.myhealth.ui.patients.mFragments.Dashboard;
@@ -43,27 +44,30 @@ public class PatientNav extends BaseActivity
 	DrawerLayout drawerLayout;
 	@BindView(R.id.nav_view)
 	NavigationView navigationView;
-	private PatientNavViewModel patientNavViewModel;
+	private PatientSharedViewModel patientSharedViewModel;
 	private FragmentManager fragmentManager = getSupportFragmentManager();
+	private NavHeaderViewHolder navHeaderViewHolder;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_patient_nav);
 		init(savedInstanceState);
+		loadUserDetailsOnNav();
 	}
 
 	void init(Bundle savedInstanceState) {
 		// Butter knife
 		ButterKnife.bind(this);
 
+		//Get navigation header
+		View navHeader = navigationView.getHeaderView(0);
+		navHeaderViewHolder = new NavHeaderViewHolder(navHeader);
+
 		//view model
-		patientNavViewModel = ViewModelProviders.of(this, new PatientNavViewModelFactory(getApplication(), this)).get(PatientNavViewModel.class);
+		patientSharedViewModel = ViewModelProviders.of(this, new PatientSharedViewModelFactory(getApplication(), this)).get(PatientSharedViewModel.class);
 
 		setSupportActionBar(toolbar);
-
-		//TODO: Check on this
-		fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).show());
 
 		navigationView.setNavigationItemSelectedListener(this);
 
@@ -73,9 +77,13 @@ public class PatientNav extends BaseActivity
 		toggle.syncState();
 
 		if (savedInstanceState == null) {
-			navigationView.setCheckedItem(R.id.dashboard);
 			switchFragment(R.id.dashboard);
 		}
+		setFabVisibility();
+		//TODO: Check on this actions
+		fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).show());
+		// set title
+		setActionBarTitle();
 	}
 
 	@Override
@@ -111,58 +119,61 @@ public class PatientNav extends BaseActivity
 
 	@Override
 	public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-		item.setChecked(true);
 		switchFragment(item.getItemId());
 		drawerLayout.closeDrawer(GravityCompat.START);
 		return true;
 	}
 
-	private void switchFragment(int menuItemId) {
-		String actionBarTitle = "";
+	public void switchFragment(int menuItemId) {
 		switch (menuItemId) {
+			case R.id.dashboard:
+				fragmentManager.beginTransaction()
+						.replace(R.id.fragment_frame
+								, new Dashboard(), "dashboard")
+						.commit();
+				navigationView.setCheckedItem(R.id.dashboard);
+				patientSharedViewModel.fabVisibilityRelay.accept(View.INVISIBLE);
+				patientSharedViewModel.actionBarTitleRelay.accept(getString(R.string.dashboard));
+				break;
 			case R.id.appointments:
 				fragmentManager.beginTransaction()
 						.replace(R.id.fragment_frame
-								, new Appointments(R.layout.patient_appointments))
+								, new Appointments(), "appointments")
 						.commit();
-				fab.setVisibility(View.VISIBLE);
-				actionBarTitle = getString(R.string.appointments);
-				break;
-			case R.id.chat:
-				fragmentManager.beginTransaction()
-						.replace(R.id.fragment_frame
-								, new Chat(R.layout.patient_chat))
-						.commit();
-				fab.setVisibility(View.VISIBLE);
-				actionBarTitle = getString(R.string.chat);
+				navigationView.setCheckedItem(R.id.appointments);
+				patientSharedViewModel.fabVisibilityRelay.accept(View.VISIBLE);
+				patientSharedViewModel.actionBarTitleRelay.accept(getString(R.string.appointments));
 				break;
 			case R.id.prescriptions:
 				fragmentManager.beginTransaction()
 						.replace(R.id.fragment_frame
-								, new Prescriptions(R.layout.patient_prescriptions))
+								, new Prescriptions(), "prescriptions")
 						.commit();
-				actionBarTitle = getString(R.string.prescriptions);
-				fab.setVisibility(View.VISIBLE);
+				navigationView.setCheckedItem(R.id.prescriptions);
+				patientSharedViewModel.fabVisibilityRelay.accept(View.VISIBLE);
+				patientSharedViewModel.actionBarTitleRelay.accept(getString(R.string.prescriptions));
 				break;
-			case R.id.dashboard:
+			case R.id.chat:
 				fragmentManager.beginTransaction()
 						.replace(R.id.fragment_frame
-								, new Dashboard(R.layout.patient_dashboard))
+								, new Chat(), "chat")
 						.commit();
-				fab.setVisibility(View.INVISIBLE);
-				actionBarTitle = getString(R.string.dashboard);
+				navigationView.setCheckedItem(R.id.chat);
+				patientSharedViewModel.fabVisibilityRelay.accept(View.VISIBLE);
+				patientSharedViewModel.actionBarTitleRelay.accept(getString(R.string.chat));
 				break;
 			case R.id.account:
 				fragmentManager.beginTransaction()
 						.replace(R.id.fragment_frame
-								, new Account(R.layout.patient_account))
+								, new Account(), "account")
 						.commit();
-				fab.setVisibility(View.INVISIBLE);
-				actionBarTitle = getString(R.string.account);
+				navigationView.setCheckedItem(R.id.account);
+				patientSharedViewModel.fabVisibilityRelay.accept(View.INVISIBLE);
+				patientSharedViewModel.actionBarTitleRelay.accept(getString(R.string.account));
 				break;
 			case R.id.logout:
 				disposables.add(
-						patientNavViewModel.logout().andThen(
+						patientSharedViewModel.logout().andThen(
 								(CompletableSource) co -> {
 									Intent intent = new Intent(PatientNav.this, OnboardingActivity.class);
 									intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -170,11 +181,45 @@ public class PatientNav extends BaseActivity
 								}
 						).subscribe()
 				);
-				actionBarTitle = getString(R.string.logout);
+				patientSharedViewModel.actionBarTitleRelay.accept(getString(R.string.logout));
 				break;
 		}
-		// set new title
-		Objects.requireNonNull(getSupportActionBar()).setTitle(actionBarTitle);
 	}
 
+	private void loadUserDetailsOnNav() {
+		disposables.add(
+				patientSharedViewModel.getLoggedInUser()
+						.subscribe(client -> {
+							navHeaderViewHolder.tv_clientUsername.setText(client.username());
+							navHeaderViewHolder.tv_clientEmail.setText(client.email());
+						})
+		);
+	}
+
+	private void setFabVisibility() {
+		disposables.add(
+				patientSharedViewModel.fabVisibility().subscribe(
+						integer -> fab.setVisibility(integer)
+				)
+		);
+	}
+
+	private void setActionBarTitle() {
+		disposables.add(
+				patientSharedViewModel.actionBarTitle().subscribe(
+						title -> Objects.requireNonNull(getSupportActionBar()).setTitle(title)
+				)
+		);
+	}
+
+	static class NavHeaderViewHolder {
+		@BindView(R.id.patientNavUsername)
+		TextView tv_clientUsername;
+		@BindView(R.id.patientNavEmail)
+		TextView tv_clientEmail;
+
+		NavHeaderViewHolder(View view) {
+			ButterKnife.bind(this, view);
+		}
+	}
 }

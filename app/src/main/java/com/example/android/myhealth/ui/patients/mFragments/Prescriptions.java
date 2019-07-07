@@ -16,10 +16,7 @@ public class Prescriptions extends BaseFragment {
 	private static final String[] appoint = {"Panadol", "Paracetamol", "Eno", "Antacid"};
 
 	public Prescriptions() {
-	}
-
-	public Prescriptions(int mContentLayoutId) {
-		super(mContentLayoutId);
+		super(R.layout.patient_prescriptions);
 	}
 
 	@Override

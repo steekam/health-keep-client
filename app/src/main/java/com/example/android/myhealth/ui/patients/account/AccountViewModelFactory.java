@@ -1,4 +1,4 @@
-package com.example.android.myhealth.ui.patients;
+package com.example.android.myhealth.ui.patients.account;
 
 import android.app.Application;
 import android.content.Context;
@@ -7,12 +7,11 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-class PatientNavViewModelFactory implements ViewModelProvider.Factory {
-
+class AccountViewModelFactory implements ViewModelProvider.Factory {
 	private final Application application;
 	private final Context activityContext;
 
-	PatientNavViewModelFactory(Application application, Context activityContext) {
+	AccountViewModelFactory(Application application, Context activityContext) {
 		this.application = application;
 		this.activityContext = activityContext;
 	}
@@ -20,6 +19,6 @@ class PatientNavViewModelFactory implements ViewModelProvider.Factory {
 	@NonNull
 	@Override
 	public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-		return (T) new PatientNavViewModel(application, activityContext);
+		return (T) new AccountViewModel(application, activityContext);
 	}
 }

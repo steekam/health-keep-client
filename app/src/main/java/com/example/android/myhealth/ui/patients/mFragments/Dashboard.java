@@ -14,10 +14,7 @@ import com.example.android.myhealth.ui.doctors.mRecycler.MyAdapter;
 
 public class Dashboard extends BaseFragment {
 	public Dashboard() {
-	}
-
-	public Dashboard(int mContentLayoutId) {
-		super(mContentLayoutId);
+		super(R.layout.patient_dashboard);
 	}
 
 	@Override

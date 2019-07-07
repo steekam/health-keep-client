@@ -9,7 +9,7 @@ import io.reactivex.Observable;
 
 class SignUpViewModel extends ViewModel {
 
-	BehaviorRelay<Boolean> clienTypeRelay = BehaviorRelay.createDefault(false);
+	BehaviorRelay<Boolean> clientTypeRelay = BehaviorRelay.createDefault(false);
 	private BehaviorRelay<Boolean> emailRelay = BehaviorRelay.createDefault(false);
 	private BehaviorRelay<Boolean> usernameRelay = BehaviorRelay.createDefault(false);
 	private BehaviorRelay<Boolean> passwordRelay = BehaviorRelay.createDefault(false);
@@ -42,6 +42,6 @@ class SignUpViewModel extends ViewModel {
 	}
 
 	void changeValidFormRelay() {
-		validFormRelay.accept(emailRelay.getValue() && usernameRelay.getValue() && passwordRelay.getValue() && clienTypeRelay.getValue());
+		validFormRelay.accept(emailRelay.getValue() && usernameRelay.getValue() && passwordRelay.getValue() && clientTypeRelay.getValue());
 	}
 }

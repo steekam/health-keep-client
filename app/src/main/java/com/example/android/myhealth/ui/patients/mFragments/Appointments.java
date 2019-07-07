@@ -19,8 +19,8 @@ public class Appointments extends BaseFragment {
 	private ArrayList<appointments_data> appoint = new ArrayList<>();
 	private AppointmentsAdapter adapter = new AppointmentsAdapter(appoint);
 
-	public Appointments(int mContentLayoutId) {
-		super(mContentLayoutId);
+	public Appointments() {
+		super(R.layout.patient_appointments);
 	}
 
 	@Override

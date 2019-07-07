@@ -114,10 +114,10 @@ public class SignUpActivity extends BaseActivity {
 		if (integer == -1) {
 			//none checked
 			mLastClientType.setError(getResources().getString(R.string.signup_client_type_error));
-			signupViewModel.clienTypeRelay.accept(false);
+			signupViewModel.clientTypeRelay.accept(false);
 		} else {
 			mLastClientType.setError(null);
-			signupViewModel.clienTypeRelay.accept(true);
+			signupViewModel.clientTypeRelay.accept(true);
 		}
 		signupViewModel.changeValidFormRelay();
 	}
@@ -239,7 +239,7 @@ public class SignUpActivity extends BaseActivity {
 						Map<String, ArrayList<String>> formErrors = gson.fromJson(errorString, errorMapType);
 						setFormErrors(formErrors);
 					} else {
-						Snackbar.make(mBtnSignup, R.string.signup_error, Snackbar.LENGTH_LONG)
+						Snackbar.make(mBtnSignup, R.string.general_error, Snackbar.LENGTH_LONG)
 								.show();
 					}
 				}));

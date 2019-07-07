@@ -19,7 +19,7 @@ public abstract class BaseFragment extends Fragment {
 	}
 
 	public BaseFragment() {
-
+		super();
 	}
 
 	@Override
