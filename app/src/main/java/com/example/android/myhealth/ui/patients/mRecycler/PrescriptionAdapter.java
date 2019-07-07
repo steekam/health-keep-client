@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.myhealth.R;
-import com.example.android.myhealth.ui.patients.mFragments.appointments_data;
 import com.example.android.myhealth.ui.patients.mFragments.prescription_data;
 
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionAdapte
     private Context context;
     private List<prescription_data> prescribe;
 
-    public PrescriptionAdapter(ArrayList<prescription_data> appoint) {
+	public PrescriptionAdapter(ArrayList<prescription_data> prescribe) {
         this.context = context;
         this.prescribe = prescribe;
     }

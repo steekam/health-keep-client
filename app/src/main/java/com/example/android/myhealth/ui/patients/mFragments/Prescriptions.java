@@ -2,7 +2,6 @@ package com.example.android.myhealth.ui.patients.mFragments;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,7 +16,6 @@ import java.util.ArrayList;
 
 public class Prescriptions extends BaseFragment {
 
-	TextView mhour, mmedicine, mdosage;
 	private ArrayList<prescription_data> prescribe = new ArrayList<>();
 	public PrescriptionAdapter adapter = new PrescriptionAdapter(prescribe);
 
@@ -31,9 +29,6 @@ public class Prescriptions extends BaseFragment {
 
 		//REFERENCE
 		RecyclerView rv = view.findViewById(R.id.rvprescriptions);
-		mhour = view.findViewById(R.id.hour);
-		mmedicine = view.findViewById(R.id.medicine);
-		mdosage = view.findViewById(R.id.dosage);
 
 		//LAYOUT MANAGER
 		rv.setLayoutManager(new LinearLayoutManager((getActivity())));
