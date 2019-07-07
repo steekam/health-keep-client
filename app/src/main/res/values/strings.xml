@@ -104,4 +104,6 @@
     <string name="account_updated">Account updated successfully</string>
     <string name="account_update_password_progress_title">PASSWORD UPDATING</string>
     <string name="password_updated_success">Account password updated</string>
+    <string name="dosage">Dosage</string>
+    <string name="medicine">Medicine</string>
 </resources>

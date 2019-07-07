@@ -10,15 +10,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.myhealth.R;
+import com.example.android.myhealth.ui.patients.mFragments.appointments_data;
+import com.example.android.myhealth.ui.patients.mFragments.prescription_data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionAdapter.RecyclerViewHolder> {
 
-    private final Context context;
-    private final String[] appoint;
+    private Context context;
+    private List<prescription_data> prescribe;
 
-    public PrescriptionAdapter(Context context, String[] appoint){
+    public PrescriptionAdapter(ArrayList<prescription_data> appoint) {
         this.context = context;
-        this.appoint = appoint;
+        this.prescribe = prescribe;
     }
 
     @NonNull
@@ -29,23 +34,53 @@ public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
-        holder.nametext.setText(appoint[position]);
+    public void onBindViewHolder(@NonNull PrescriptionAdapter.RecyclerViewHolder holder, int position) {
+        prescription_data data = prescribe.get(position);
+
+        holder.mhour.setText(data.getmhour());
+        holder.mmedicine.setText(data.getmmedicine());
+        holder.mdosage.setText(data.getmdosage());
+//        holder.option.setOnClickListener(v -> {
+//            PopupMenu popup = new PopupMenu(context, holder.option);
+//            popup.inflate(R.menu.option_menu);
+//            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//                @Override
+//                public boolean onMenuItemClick(MenuItem item) {
+//                    switch (item.getGroupId()){
+//                        case R.id.edit:
+//                            Toast.makeText(context, "Add edit function", Toast.LENGTH_LONG).show();
+//                            return true;
+//
+//                        case R.id.delete:
+//                            Toast.makeText(context, "Add delete pop up function", Toast.LENGTH_LONG).show();
+//                            return true;
+//
+//                        default:
+//                            break;
+//                    }
+//                    return false;
+//                }
+//            });
+//            popup.show();
+//        });
     }
 
     @Override
     public int getItemCount() {
-        return appoint.length;
+        return prescribe.size();
     }
 
 
     public class RecyclerViewHolder extends RecyclerView.ViewHolder{
-        final TextView nametext;
 
-        RecyclerViewHolder(View itemview) {
-            super(itemview);
-            nametext = itemview.findViewById(R.id.nametext);
+        TextView mhour, mmedicine, mdosage;
 
+        RecyclerViewHolder(View itemView) {
+            super(itemView);
+
+            mhour = itemView.findViewById(R.id.hour);
+            mmedicine = itemView.findViewById(R.id.medicine);
+            mdosage = itemView.findViewById(R.id.dosage);
         }
     }
 }
