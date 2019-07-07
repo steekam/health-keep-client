@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
         <item name="colorAccent">@color/secondaryColor</item>
 
+
         <!-- New MaterialComponents attributes. -->
         <!--<item name="colorPrimaryVariant">@color/my_app_primary_variant_color</item>-->
         <!--<item name="colorSecondaryVariant">@color/my_app_secondary_variant_color</item>-->
@@ -31,19 +32,37 @@
         <item name="textAppearanceButton">@style/TextAppearance.MaterialComponents.Button</item>
         <item name="textAppearanceOverline">@style/TextAppearance.MaterialComponents.Overline</item>
     </style>
-
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
     <style name="textField">
         <item name="android:padding">10dp</item>
         <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Toolbar" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="android:textColorPrimary">@color/black</item>
+    </style>
+
+    <!--FAB Chat -->
+
+    <style name="AppTheme.ButtonStyle" parent="ThemeOverlay.AppCompat">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:clickable">true</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="textAllCaps">true</item>
+    </style>
+
+    <!--Disconnect Button Chat -->
+    <style name="AppTheme.ButtonStyle2" parent="ThemeOverlay.AppCompat">
+        <item name="colorAccent">#ffffff</item>
+        <item name="android:clickable">true</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#774df2</item>
+        <item name="textAllCaps">true</item>
     </style>
 
     <!--TextInputLayout-->
@@ -52,5 +71,8 @@
         <item name="android:textColorHint">@color/colorPrimary</item>
     </style>
 
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
     <!--Card view-->
 </resources>

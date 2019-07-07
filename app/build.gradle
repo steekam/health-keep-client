@@ -12,6 +12,8 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+        multiDexEnabled true
+
     }
     buildTypes {
         release {
@@ -25,6 +27,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
+repositories {
+    maven { url "https://raw.githubusercontent.com/sendbird/SendBird-SDK-Android/master/" }
+    google()
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -35,6 +41,8 @@ dependencies {
     implementation "com.google.android.material:material:$materialVersion"
     implementation "androidx.cardview:cardview:$cardViewVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.multidex:multidex:2.0.1'
 
     // Common core
     implementation project(":common_core")
@@ -65,8 +73,22 @@ dependencies {
     //Stetho
     implementation "com.facebook.stetho:stetho:$stethoVersion"
 
+    // SendBird
+    implementation 'com.sendbird.sdk:sendbird-android-sdk:3.0.97'
+
+    // Firebase
+    implementation 'com.google.firebase:firebase-core:17.0.0'
+    implementation 'com.google.firebase:firebase-messaging:19.0.1'
+
+    // External libraries
+    implementation 'com.github.bumptech.glide:glide:4.3.1'
+    implementation 'org.jsoup:jsoup:1.11.2'
+    implementation 'com.dinuscxj:circleprogressbar:1.1.1'
+    implementation 'com.github.stfalcon:multiimageview:0.1'
+
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test:runner:$testRunnerVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
 
 }
+apply plugin: 'com.google.gms.google-services'

@@ -69,7 +69,6 @@ public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionAdapte
         return prescribe.size();
     }
 
-
     public class RecyclerViewHolder extends RecyclerView.ViewHolder{
 
         TextView mhour, mmedicine, mdosage;
