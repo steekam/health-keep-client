@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_appointments"
                 android:padding="20dp"
-                android:text="Appointment"
+                android:text="@string/appointments"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@color/black" />
 

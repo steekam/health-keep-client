@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Health Keep</string>
+    <string name="account_new_password_hint">Neues Passwort</string>
+    <string name="account_old_password_hint">Altes Passwort</string>
+    <string name="account_update_password_progress_title">Passwort Aktualisierung</string>
+    <string name="account_update_progress_title">Konto Aktualisierung</string>
+    <string name="account_updated">Konto erfolgreich aktualisiert</string>
+    <string name="action_settings">Einstellung</string>
+    <string name="appointment_tracker">Termin Tracker</string>
+    <string name="appointments">der Termin</string>
+    <string name="change_password_card_title">rücksetzen Passwort</string>
+    <string name="chat">Plaudern</string>
+    <string name="connection_timeout_error">Versuchen Sie es nochmal</string>
+    <string name="dashboard">das Armaturenbrett</string>
+    <string name="date">Datum</string>
+    <string name="delete">löschen</string>
+    <string name="doctor">Arzt</string>
+    <string name="doctor_chat">Arzt-Chat</string>
+    <string name="doctors">Sprechen Sie mit Ihren Ärzten</string>
+    <string name="dosage">Dosierung</string>
+    <string name="edit">Bearbeiten</string>
+    <string name="edit_option">bearbeiten</string>
+    <string name="email">E-Mail-Addresse</string>
+    <string name="email_hint">E-Mail</string>
+    <string name="email_hint_allcaps">E-Mail</string>
+    <string name="error_occurred">Error</string>
+    <string name="forgot_password_prompt">Vergessen Passwort?</string>
+    <string name="general_error">Oops! Versuchen Sie es nochmal</string>
+    <string name="have_account">Hast du schon ein Konto?</string>
+    <string name="internet_connection_error">Kein Internet</string>
+    <string name="join">Beitreten</string>
+    <string name="login">Anmeldung</string>
+    <string name="login_invalid_credentials">Ungültige Informationen</string>
+    <string name="logout">Ausloggen</string>
+    <string name="medicine">Medizin</string>
+    <string name="menu_gallery">Galerie</string>
+    <string name="menu_home">Heim</string>
+    <string name="menu_send">Senden</string>
+    <string name="menu_share">Aktie</string>
+    <string name="menu_slideshow">Diashow</string>
+    <string name="menu_tools">Werkzeuge</string>
+    <string name="nav_header_email_address">E-Mail-Addresse</string>
+    <string name="nav_header_desc">Navigationskopfzeile</string>
+    <string name="nav_header_username">Nutzername</string>
+    <string name="navigation_drawer_close">Schließen</string>
+    <string name="navigation_drawer_open">öffnen</string>
+    <string name="no_account">Hast du keinen Konto?</string>
+    <string name="password">Passwort</string>
+    <string name="password_hint">Passwort</string>
+    <string name="password_updated_success">Kontokennwort aktualisiert</string>
+    <string name="patient">Patient</string>
+    <string name="patients">Patienten</string>
+    <string name="personal">Persönlich</string>
+    <string name="personal_details_card_title">Persönliche Details</string>
+    <string name="please_wait_msg">Warten Sie mal</string>
+    <string name="prescriptions">Rezept</string>
+    <string name="prompt_email">E-Mail</string>
+    <string name="prompt_password">Passwort</string>
+    <string name="prompt_username">Nutzername</string>
+    <string name="remember">Wir helfen Ihnen, sich zu erinnern</string>
+    <string name="reminder">Persönliche Gesundheitserinnerung</string>
+    <string name="required_field_error">Erforderlich</string>
+    <string name="reset_password_option">Rücksetzen</string>
+    <string name="save_option">Sparen</string>
+    <string name="sign_in_text">Einloggen</string>
+    <string name="sign_up_activity_title">Anmelden</string>
+    <string name="signin_activity_title">Einloggen</string>
+    <string name="signup_client_type_error">Wähle Ein</string>
+    <string name="signup_email_error">Ungültige E-Mail</string>
+    <string name="signup_loading_text">Anmelden</string>
+    <string name="signup_password_error">Mindestens 8 Zeichen und 1 Ziffer</string>
+    <string name="signup_success">Ein Bestätigungslink wurde an Ihre E-Mail gesendet. Überprüfen Sie Ihr Konto, um sich anzumelden.</string>
+    <string name="time">Zeit</string>
+    <string name="title_activity_dashboard">Instrumententafel</string>
+    <string name="title_activity_doctor_nav">Arzt-Instrumententafel</string>
+    <string name="title_activity_patient_account">Meine Konto</string>
+    <string name="title_activity_patient_appointments">Meine Termine</string>
+    <string name="title_activity_patient_prescriptions">Meine Rezepte</string>
+    <string name="upcoming_appointments">Bevorstehende Termine</string>
+    <string name="username_hint">Nutzername</string>
+    <string name="username_hint_allcaps">NUTZERNAME</string>
+    <string name="title_activity_nav_drawer">NavDrawer</string>
+    <string name="account">Konto</string>
+    <string name="all_create">Erstellen</string>
+    <string name="all_group_channels">Alle Chats</string>
+    <string name="all_invite">Einladen</string>
+    <string name="blocked_members_list">Gesperrte Mitglieder</string>
+    <string name="cancel">Stornieren</string>
+    <string name="connect_chat">Chat öffnen</string>
+    <string name="create_group_channel">Erstelle einen neuen Chat</string>
+    <string name="delete_message">Löschen</string>
+    <string name="download">Herunterladen</string>
+    <string name="invite_member">Mitglieder einladen</string>
+    <string name="login_connect">Verbinden</string>
+    <string name="login_disconnect">Trennen</string>
+    <string name="login_user_id">Benutzeridentifikation</string>
+    <string name="login_user_nickname">Nutzername</string>
+    <string name="main_drawer_close">Schließen</string>
+    <string name="main_drawer_open">öffnen</string>
+    <string name="member_list">Mitglieder</string>
+    <string name="message_failed">Gescheitert</string>
+    <string name="message_sending">Senden</string>
+    <string name="open_channel_chat_content_desc_profile">Profilbild</string>
+    <string name="resend_message">Erneut Senden</string>
+    <string name="select_channel_type">Wählen Sie den Kanaltyp</string>
+    <string name="settings">Einstellung</string>
+    <string name="upload">Hochladen</string>
+    <string name="cancel_option">Stornieren</string>
+
+    <string-array name="slide_headings">
+        <item>@string/welcome</item>
+        <item>@string/tracker</item>
+        <item>@string/drchat</item>
+    </string-array>
+    <string-array name="slide_descriptions">
+        <item>@string/desc1</item>
+        <item>@string/desc2</item>
+        <item>@string/desc3</item>
+    </string-array>
+    <string name="desc1">Ihre persönliche Gesundheitserinnerung</string>
+    <string name="desc2">Verpassen Sie niemals einen Arzttermin</string>
+    <string name="desc3">Sprechen Sie mit Ihren Ärzten</string>
+    <string name="drchat">Arzt-Chat</string>
+    <string name="tracker">Termin Tracker</string>
+    <string name="welcome">Willkommen zu Health Keep</string>
+</resources>

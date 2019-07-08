@@ -15,6 +15,12 @@ android {
         multiDexEnabled true
 
     }
+    buildscript {
+        repositories {
+            google()
+            jcenter()
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
