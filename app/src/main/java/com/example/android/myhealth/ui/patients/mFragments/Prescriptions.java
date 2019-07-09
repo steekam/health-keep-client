@@ -10,9 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.myhealth.R;
 import com.example.android.myhealth.base.BaseFragment;
+import com.example.android.myhealth.ui.patients.PatientNav;
 import com.example.android.myhealth.ui.patients.mRecycler.PrescriptionAdapter;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Prescriptions extends BaseFragment {
 
@@ -26,6 +29,8 @@ public class Prescriptions extends BaseFragment {
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+
+		((PatientNav) Objects.requireNonNull(getActivity())).fab.setOnClickListener(this::fabOnClickListener);
 
 		//REFERENCE
 		RecyclerView rv = view.findViewById(R.id.rvprescriptions);
@@ -68,5 +73,9 @@ public class Prescriptions extends BaseFragment {
 				)
 		);
 
+	}
+
+	private void fabOnClickListener(View view) {
+		Snackbar.make(view, "Add new medications", Snackbar.LENGTH_LONG).show();
 	}
 }

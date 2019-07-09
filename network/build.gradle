@@ -51,6 +51,11 @@ dependencies {
     //Stetho
     implementation "com.facebook.stetho:stetho-okhttp3:$stethoVersion"
 
+    implementation "com.jakewharton.threetenabp:threetenabp:$threeTenAbpVersion"
+
+//    Entities
+    implementation project(":entities")
+
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test:runner:$testRunnerVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Health Keep</string>
     <string name="health_keep">Health Keep</string>
-    <string name="reminder">Your personal health reminder</string>
+    <string name="customReminder">Your personal health customReminder</string>
     <string name="appointment_tracker">Appointment Tracker</string>
     <string name="remember">We help you remember</string>
     <string name="doctor_chat">Doctor Chat</string>
@@ -70,7 +70,7 @@
         <item>Doctor Chat</item>
     </string-array>
     <string-array name="slide_descriptions">
-        <item>Your personal health reminder</item>
+        <item>Your personal health customReminder</item>
         <item>Never miss a doctor\'s appointment</item>
         <item>Keep in touch with your doctors</item>
     </string-array>
@@ -83,7 +83,7 @@
     <string name="signup_client_type_error">Choose one</string>
 
     <string name="signup_success">A verification link has been sent to your email. Verify your account to login.</string>
-    <string name="general_error">Oops! Something ain\'t right. Trg again later </string>
+    <string name="general_error">Oops! Something ain\'t right. Try again later </string>
 
     <string name="required_field_error">Required field</string>
     <string name="login_invalid_credentials">Invalid credentials</string>
@@ -106,4 +106,20 @@
     <string name="password_updated_success">Account password updated</string>
     <string name="dosage">Dosage</string>
     <string name="medicine">Medicine</string>
+    <string name="history">History</string>
+    <string name="empty_appointments_description">empty appointments</string>
+    <string name="empty_appointments_string">Create new appointments by clicking the button at the bottom right corner</string>
+    <string name="empty_appointments_history_image_description">Empty history appointments</string>
+    <string name="empty_appointments_history_string">No past appointments yet</string>
+    <string name="add_appointments">Add Appointment</string>
+    <string name="add_appointment_title">Title</string>
+    <string name="add_appointment_description">Description</string>
+    <string name="add_appointment_location">Location</string>
+    <string name="add_appointment_date">Date</string>
+    <string name="add_appointment_time">Time</string>
+    <string name="reminder">Reminder</string>
+    <string name="repeat">Repeat</string>
+    <string name="add_appointment_start_date">Start Date</string>
+    <string name="add_appointment_frequency">Frequency</string>
+    <string name="appointment">Appointment</string>
 </resources>

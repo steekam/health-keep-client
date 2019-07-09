@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 1,
-    "identityHash": "4ca375e58147eb555e0ae6a3d7732650",
+    "version": 2,
+    "identityHash": "45d5b99f4a3b3a96520a42231060e2a0",
     "entities": [
       {
         "tableName": "client",
@@ -127,12 +127,74 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "reminders",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`reminderId` INTEGER NOT NULL, `startDate` TEXT, `reminderTime` TEXT, `repeat` INTEGER NOT NULL, `frequency` TEXT, `reminderbleId` INTEGER NOT NULL, `reminderbleType` TEXT, `active` INTEGER NOT NULL, PRIMARY KEY(`reminderId`))",
+        "fields": [
+          {
+            "fieldPath": "reminderId",
+            "columnName": "reminderId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startDate",
+            "columnName": "startDate",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "reminderTime",
+            "columnName": "reminderTime",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "repeat",
+            "columnName": "repeat",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "frequency",
+            "columnName": "frequency",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "reminderbleId",
+            "columnName": "reminderbleId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "reminderbleType",
+            "columnName": "reminderbleType",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "active",
+            "columnName": "active",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "reminderId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4ca375e58147eb555e0ae6a3d7732650')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '45d5b99f4a3b3a96520a42231060e2a0')"
     ]
   }
 }

@@ -13,31 +13,35 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.android.myhealth.R;
 import com.example.android.myhealth.base.BaseActivity;
 import com.example.android.myhealth.ui.onboarding.OnboardingActivity;
 import com.example.android.myhealth.ui.patients.account.Account;
-import com.example.android.myhealth.ui.patients.mFragments.Appointments;
+import com.example.android.myhealth.ui.patients.appointment.AddAppointment;
+import com.example.android.myhealth.ui.patients.appointment.AppointmentsMaster;
 import com.example.android.myhealth.ui.patients.mFragments.Chat;
 import com.example.android.myhealth.ui.patients.mFragments.Dashboard;
 import com.example.android.myhealth.ui.patients.mFragments.Prescriptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.CompletableSource;
+import io.reactivex.disposables.Disposable;
 
 public class PatientNav extends BaseActivity
 		implements NavigationView.OnNavigationItemSelectedListener {
+	private static final String BACK_STACK_ROOT_TAG = "root_fragment";
 	//views
 	@BindView(R.id.fab)
-	FloatingActionButton fab;
+	public FloatingActionButton fab;
+	public ActionBarDrawerToggle toggle;
 	@BindView(R.id.toolbar)
 	Toolbar toolbar;
 	@BindView(R.id.drawer_layout)
@@ -71,19 +75,19 @@ public class PatientNav extends BaseActivity
 
 		navigationView.setNavigationItemSelectedListener(this);
 
-		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+		toggle = new ActionBarDrawerToggle(
 				this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+		toggle.setToolbarNavigationClickListener(v -> onBackPressed());
+
 		drawerLayout.addDrawerListener(toggle);
+
+
 		toggle.syncState();
 
 		if (savedInstanceState == null) {
 			switchFragment(R.id.dashboard);
 		}
-		setFabVisibility();
-		//TODO: Check on this actions
-		fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).show());
-		// set title
-		setActionBarTitle();
+		disposables.addAll(subscriptions());
 	}
 
 	@Override
@@ -91,6 +95,7 @@ public class PatientNav extends BaseActivity
 		if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
 			drawerLayout.closeDrawer(GravityCompat.START);
 		} else {
+			Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
 			super.onBackPressed();
 		}
 	}
@@ -130,22 +135,30 @@ public class PatientNav extends BaseActivity
 				fragmentManager.beginTransaction()
 						.replace(R.id.fragment_frame
 								, new Dashboard(), "dashboard")
+						.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
 						.commit();
-				navigationView.setCheckedItem(R.id.dashboard);
-				patientSharedViewModel.fabVisibilityRelay.accept(View.INVISIBLE);
-				patientSharedViewModel.actionBarTitleRelay.accept(getString(R.string.dashboard));
 				break;
 			case R.id.appointments:
+				fragmentManager.popBackStack(BACK_STACK_ROOT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 				fragmentManager.beginTransaction()
 						.replace(R.id.fragment_frame
-								, new Appointments(), "appointments")
+								, new AppointmentsMaster(), getString(R.string.appointments))
+						.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+						.addToBackStack(BACK_STACK_ROOT_TAG)
 						.commit();
-				navigationView.setCheckedItem(R.id.appointments);
-				patientSharedViewModel.fabVisibilityRelay.accept(View.VISIBLE);
-				patientSharedViewModel.actionBarTitleRelay.accept(getString(R.string.appointments));
+				break;
+			case R.id.appointments_add:
+				fragmentManager.popBackStack(BACK_STACK_ROOT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+				fragmentManager.beginTransaction()
+						.replace(R.id.fragment_frame
+								, new AddAppointment(), getString(R.string.add_appointments))
+						.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+						.addToBackStack(BACK_STACK_ROOT_TAG)
+						.commit();
 				break;
 			case R.id.prescriptions:
 				fragmentManager.beginTransaction()
+						.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
 						.replace(R.id.fragment_frame
 								, new Prescriptions(), "prescriptions")
 						.commit();
@@ -155,6 +168,7 @@ public class PatientNav extends BaseActivity
 				break;
 			case R.id.chat:
 				fragmentManager.beginTransaction()
+						.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
 						.replace(R.id.fragment_frame
 								, new Chat(), "chat")
 						.commit();
@@ -164,6 +178,7 @@ public class PatientNav extends BaseActivity
 				break;
 			case R.id.account:
 				fragmentManager.beginTransaction()
+						.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
 						.replace(R.id.fragment_frame
 								, new Account(), "account")
 						.commit();
@@ -196,20 +211,21 @@ public class PatientNav extends BaseActivity
 		);
 	}
 
-	private void setFabVisibility() {
-		disposables.add(
+	private Disposable[] subscriptions() {
+		return new Disposable[]{
 				patientSharedViewModel.fabVisibility().subscribe(
 						integer -> fab.setVisibility(integer)
-				)
-		);
-	}
-
-	private void setActionBarTitle() {
-		disposables.add(
+				),
 				patientSharedViewModel.actionBarTitle().subscribe(
 						title -> Objects.requireNonNull(getSupportActionBar()).setTitle(title)
-				)
-		);
+				),
+				patientSharedViewModel.setCheckedItem().subscribe(id -> navigationView.setCheckedItem(id)),
+				patientSharedViewModel.homeAsUp().subscribe(value -> {
+					toggle.setDrawerIndicatorEnabled(!value);
+					toggle.syncState();
+					Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(value);
+				})
+		};
 	}
 
 	static class NavHeaderViewHolder {

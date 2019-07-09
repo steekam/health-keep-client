@@ -2,11 +2,21 @@ package com.steekam.network;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.steekam.network.gsonAdapters.LocalDateAdapter;
+import com.steekam.network.gsonAdapters.LocalDateTimeAdapter;
+import com.steekam.network.gsonAdapters.LocalTimeAdapter;
 import com.steekam.network.models.AdapterFactory;
+import com.steekam.network.services.AppointmentService;
 import com.steekam.network.services.ClientService;
+
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.LocalTime;
 
 import java.util.concurrent.TimeUnit;
 
@@ -20,14 +30,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class RetrofitClient {
-	//	private final static String BASEURL = "http://health-keep-server.herokuapp.com/api/v1/";
-	private final static String BASEURL = "http://93fe9d0c.ngrok.io/api/v1/";
 	private static RetrofitClient INSTANCE;
 	private final ClientService clientService;
+	private final AppointmentService appointmentService;
 
 	private RetrofitClient(Context context) {
 		Retrofit client = provideRetrofitClient(context);
 		clientService = client.create(ClientService.class);
+		appointmentService = client.create(AppointmentService.class);
 	}
 
 	public static synchronized RetrofitClient getInstance(Context context) {
@@ -39,22 +49,28 @@ public class RetrofitClient {
 		return INSTANCE;
 	}
 
+	@NonNull
 	private Gson provideGson() {
 		return new GsonBuilder()
 				.registerTypeAdapterFactory(AdapterFactory.create())
+				.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+				.registerTypeAdapter(LocalTime.class, new LocalTimeAdapter())
+				.registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
 				.create();
 	}
 
+	@NonNull
 	private Retrofit provideRetrofitClient(Context context) {
 		return new Retrofit.Builder()
-				.baseUrl(BASEURL)
+				.baseUrl(Constants.BASEURL)
 				.client(provideHTTPClient(context))
 				.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 				.addConverterFactory(GsonConverterFactory.create(provideGson()))
 				.build();
 	}
 
-	private OkHttpClient provideHTTPClient(Context context) {
+	@NonNull
+	private OkHttpClient provideHTTPClient(@NonNull Context context) {
 		return new OkHttpClient.Builder()
 				.connectTimeout(10, TimeUnit.SECONDS)
 				.readTimeout(15, TimeUnit.SECONDS)
@@ -76,5 +92,9 @@ public class RetrofitClient {
 
 	public ClientService getClientService() {
 		return this.clientService;
+	}
+
+	public AppointmentService getAppointmentService() {
+		return this.appointmentService;
 	}
 }

@@ -27,6 +27,7 @@ public interface ClientDao {
 	@Query("DELETE FROM client")
 	Completable clear();
 
+	@SuppressWarnings("AndroidUnresolvedRoomSqlReference")
 	@Query("SELECT * FROM client WHERE clientId = :clientId")
 	Observable<Client> getClient(long clientId);
 

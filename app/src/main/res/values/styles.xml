@@ -8,15 +8,6 @@
         <item name="colorAccent">@color/secondaryColor</item>
 
         <!-- New MaterialComponents attributes. -->
-        <!--<item name="colorPrimaryVariant">@color/my_app_primary_variant_color</item>-->
-        <!--<item name="colorSecondaryVariant">@color/my_app_secondary_variant_color</item>-->
-        <!--<item name="colorSurface">@color/my_app_surface_color</item>-->
-        <!--<item name="colorOnPrimary">@color/my_app_color_on_primary</item>-->
-        <!--<item name="colorOnSecondary">@color/my_app_color_on_secondary</item>-->
-        <!--<item name="colorOnBackground">@color/my_app_color_on_background</item>-->
-        <!--<item name="colorOnError">@color/my_app_color_on_error</item>-->
-        <!--<item name="colorOnSurface">@color/my_app_color_on_surface</item>-->
-        <!--<item name="scrimBackground">@color/mtrl_scrim_color</item>-->
         <item name="textAppearanceHeadline1">@style/TextAppearance.MaterialComponents.Headline1</item>
         <item name="textAppearanceHeadline2">@style/TextAppearance.MaterialComponents.Headline2</item>
         <item name="textAppearanceHeadline3">@style/TextAppearance.MaterialComponents.Headline3</item>
@@ -31,15 +22,51 @@
         <item name="textAppearanceButton">@style/TextAppearance.MaterialComponents.Button</item>
         <item name="textAppearanceOverline">@style/TextAppearance.MaterialComponents.Overline</item>
     </style>
-
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- Patient application theme. -->
+    <style name="PatientTheme" parent="Theme.MaterialComponents.Light.DarkActionBar.Bridge">
+        <item name="colorPrimary">@color/secondaryColor</item>
+        <item name="colorPrimaryDark">@color/secondaryDarkColor</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+
+        <!-- New MaterialComponents attributes. -->
+        <item name="textAppearanceHeadline1">@style/TextAppearance.MaterialComponents.Headline1
+        </item>
+        <item name="textAppearanceHeadline2">@style/TextAppearance.MaterialComponents.Headline2
+        </item>
+        <item name="textAppearanceHeadline3">@style/TextAppearance.MaterialComponents.Headline3
+        </item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.MaterialComponents.Headline4
+        </item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.MaterialComponents.Headline5
+        </item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.MaterialComponents.Headline6
+        </item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.MaterialComponents.Subtitle1
+        </item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.MaterialComponents.Subtitle2
+        </item>
+        <item name="textAppearanceBody1">@style/TextAppearance.MaterialComponents.Body1</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.MaterialComponents.Body2</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.MaterialComponents.Caption</item>
+        <item name="textAppearanceButton">@style/TextAppearance.MaterialComponents.Button</item>
+        <item name="textAppearanceOverline">@style/TextAppearance.MaterialComponents.Overline</item>
+    </style>
+
+    <style name="PatientTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="PatientTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="PatientTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 
     <style name="textField">
         <item name="android:padding">10dp</item>
@@ -51,6 +78,4 @@
         <item name="boxBackgroundColor">@color/white</item>
         <item name="android:textColorHint">@color/colorPrimary</item>
     </style>
-
-    <!--Card view-->
 </resources>

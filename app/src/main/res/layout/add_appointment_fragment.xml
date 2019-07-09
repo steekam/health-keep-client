@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/appointments_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".ui.patients.appointment.AddAppointment">
+
+        <TextView
+            android:id="@+id/appointment_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/d2"
+            android:layout_marginTop="@dimen/d1"
+            android:text="@string/appointment"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+            app:layout_constraintBottom_toTopOf="@id/add_appointment_title_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/add_appointment_title_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="@dimen/d1"
+            android:layout_marginEnd="8dp"
+            android:hint="@string/add_appointment_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appointment_title">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_appointment_title_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:maxLines="1"
+                tools:targetApi="o" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/add_appointment_description_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:hint="@string/add_appointment_description"
+            app:endIconMode="clear_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_appointment_title_layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_appointment_description_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:maxLines="1"
+                tools:targetApi="o" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/add_appointment_location_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:hint="@string/add_appointment_location"
+            app:endIconMode="clear_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_appointment_description_layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_appointment_location_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:maxLines="1"
+                tools:targetApi="o" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/add_appointment_date_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:hint="@string/add_appointment_date"
+            app:endIconDrawable="@drawable/ic_today_black_24dp"
+            app:endIconMode="custom"
+            app:layout_constraintEnd_toStartOf="@id/add_appointment_time_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_appointment_location_layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_appointment_date_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cursorVisible="false"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="no"
+                android:inputType="date"
+                android:maxLines="1"
+                tools:targetApi="o" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/add_appointment_time_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:hint="@string/add_appointment_time"
+            app:endIconDrawable="@drawable/ic_access_time_black_24dp"
+            app:endIconMode="custom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/add_appointment_date_layout"
+            app:layout_constraintTop_toBottomOf="@id/add_appointment_location_layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_appointment_time_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cursorVisible="false"
+                android:importantForAutofill="no"
+                android:inputType="time"
+                android:maxLines="1"
+                tools:targetApi="o" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/add_appointment_reminder_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/d2"
+            android:layout_marginTop="@dimen/d1"
+            android:text="@string/reminder"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_appointment_date_layout" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/add_appointment_reminder_date_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:hint="@string/add_appointment_start_date"
+            app:endIconDrawable="@drawable/ic_today_black_24dp"
+            app:endIconMode="custom"
+            app:layout_constraintEnd_toStartOf="@id/add_appointment_reminder_time_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_appointment_reminder_title">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_appointment_reminder_date_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cursorVisible="false"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="no"
+                android:inputType="date"
+                android:maxLines="1"
+                tools:targetApi="o" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/add_appointment_reminder_time_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:hint="@string/add_appointment_time"
+            app:endIconDrawable="@drawable/ic_access_time_black_24dp"
+            app:endIconMode="custom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/add_appointment_reminder_date_layout"
+            app:layout_constraintTop_toBottomOf="@id/add_appointment_reminder_title">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_appointment_reminder_time_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cursorVisible="false"
+                android:importantForAutofill="no"
+                android:inputType="time"
+                android:maxLines="1"
+                tools:targetApi="o" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/add_appointment_reminder_repeat_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:hint="@string/repeat"
+            app:endIconMode="dropdown_menu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_appointment_reminder_date_layout">
+
+            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                android:id="@+id/add_appointment_reminder_repeat_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:maxLines="1"
+                android:padding="@dimen/d1"
+                tools:targetApi="o" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_add_appointment"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/d1"
+            android:layout_marginTop="@dimen/d2"
+            android:layout_marginEnd="@dimen/d1"
+            android:layout_marginBottom="@dimen/d3"
+            android:background="?attr/colorPrimary"
+            android:padding="2dp"
+            android:text="@string/add_appointments"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_appointment_reminder_repeat_layout" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

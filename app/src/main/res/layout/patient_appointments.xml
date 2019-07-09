@@ -1,15 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:orientation="vertical">
+
+    <ProgressBar
+        android:id="@+id/loading_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvappointments"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/recyclerview_padding_bottom"
+        android:visibility="gone"
+        tools:itemCount="5"
+        tools:listitem="@layout/patient_appointments_model" />
 
-    </androidx.recyclerview.widget.RecyclerView>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/empty_appointments_display"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/calendar_monochrome_image"
+            android:layout_width="295dp"
+            android:layout_height="300dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/ic_calendar_monochrome"
+            android:contentDescription="@string/empty_appointments_description"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

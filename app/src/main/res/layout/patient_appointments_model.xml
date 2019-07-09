@@ -9,11 +9,11 @@
         android:layout_margin="5dp"
         android:orientation="horizontal"
         card_view:cardCornerRadius="5dp"
-        card_view:cardElevation="5dp">
+        card_view:cardElevation="@dimen/cardview_default_elevation">
 
         <!--TODO: change this layout-->
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="80dp"
             android:orientation="vertical">
 
@@ -57,20 +57,6 @@
                 android:text="@string/time"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/options"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/date"
-                android:layout_alignParentRight="true"
-                android:paddingRight="15dp"
-                android:paddingBottom="10dp"
-                android:text="&#8942;"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
-
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>

@@ -17,6 +17,8 @@ import io.reactivex.Observable;
 public class PatientSharedViewModel extends ViewModel {
 	public BehaviorRelay<Integer> fabVisibilityRelay = BehaviorRelay.createDefault(View.VISIBLE);
 	public BehaviorRelay<String> actionBarTitleRelay = BehaviorRelay.create();
+	public BehaviorRelay<Integer> checkedItemRelay = BehaviorRelay.create();
+	public BehaviorRelay<Boolean> homeAsUpRelay = BehaviorRelay.create();
 	private ClientRepository clientRepository;
 
 	PatientSharedViewModel(Application application, Context activityContext) {
@@ -32,11 +34,19 @@ public class PatientSharedViewModel extends ViewModel {
 		return clientRepository.getLoggedInUser();
 	}
 
-	public Observable<Integer> fabVisibility() {
+	Observable<Integer> fabVisibility() {
 		return fabVisibilityRelay;
 	}
 
-	public Observable<String> actionBarTitle() {
+	Observable<String> actionBarTitle() {
 		return actionBarTitleRelay;
+	}
+
+	Observable<Integer> setCheckedItem() {
+		return checkedItemRelay;
+	}
+
+	Observable<Boolean> homeAsUp() {
+		return homeAsUpRelay;
 	}
 }
