@@ -73,9 +73,37 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="Toolbar" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="android:textColorPrimary">@color/black</item>
+    </style>
+
+    <!--FAB Chat -->
+
+    <style name="AppTheme.ButtonStyle" parent="ThemeOverlay.AppCompat">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:clickable">true</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="textAllCaps">true</item>
+    </style>
+
+    <!--Disconnect Button Chat -->
+    <style name="AppTheme.ButtonStyle2" parent="ThemeOverlay.AppCompat">
+        <item name="colorAccent">#ffffff</item>
+        <item name="android:clickable">true</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#774df2</item>
+        <item name="textAllCaps">true</item>
+    </style>
+
     <!--TextInputLayout-->
     <style name="MyDenseTextLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
         <item name="boxBackgroundColor">@color/white</item>
         <item name="android:textColorHint">@color/colorPrimary</item>
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <!--Card view-->
 </resources>
