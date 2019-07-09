@@ -173,5 +173,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="all_group_channels">All Chats</string>
     <string name="connect_chat">Open Chat Module </string>
+    <string name="nav_header_subtitle">header_sub</string>
 
 </resources>
