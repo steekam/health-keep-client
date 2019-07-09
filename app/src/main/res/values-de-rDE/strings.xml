@@ -124,4 +124,19 @@
     <string name="drchat">Arzt-Chat</string>
     <string name="tracker">Termin Tracker</string>
     <string name="welcome">Willkommen zu Health Keep</string>
+    <string name="add_appointment_date">Datum</string>
+    <string name="add_appointment_description">Beschreibung</string>
+    <string name="add_appointment_frequency">Frequenz</string>
+    <string name="add_appointment_location">Standort</string>
+    <string name="add_appointment_start_date">Start Datum</string>
+    <string name="add_appointment_time">Zeit</string>
+    <string name="add_appointment_title">Titel</string>
+    <string name="add_appointments">Hinzufügen Termin</string>
+    <string name="empty_appointments_description">leeren</string>
+    <string name="empty_appointments_history_image_description">leeren</string>
+    <string name="empty_appointments_history_string">leeren</string>
+    <string name="repeat">wiederholen</string>
+    <string name="str_reminder">Erinnerung</string>
+    <string name="history">Geschichte</string>
+    <string name="appointment">Termin</string>
 </resources>

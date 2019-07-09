@@ -113,4 +113,19 @@
     <string name="username_hint">Jina la mtumiaji</string>
     <string name="username_hint_allcaps">JINA</string>
     <string name="welcome">Karibu Health Keep</string>
+    <string name="add_appointment_date">Tarehe</string>
+    <string name="add_appointment_description">Maelezeo</string>
+    <string name="repeat">rudia</string>
+    <string name="str_reminder">ukumbusho</string>
+    <string name="history">Historia</string>
+    <string name="empty_appointments_history_string">Hakuna</string>
+    <string name="empty_appointments_history_image_description">Hakuna</string>
+    <string name="empty_appointments_description">Hakuna</string>
+    <string name="appointment">Uteuzi</string>
+    <string name="add_appointments">Ongeza uteuzi</string>
+    <string name="add_appointment_frequency">marudio</string>
+    <string name="add_appointment_title">cheo</string>
+    <string name="add_appointment_time">wakati</string>
+    <string name="add_appointment_start_date">siku ya kwanza</string>
+    <string name="add_appointment_location">pahali</string>
 </resources>

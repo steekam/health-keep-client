@@ -113,7 +113,7 @@
     <string name="medicine">Medicine</string>
     <string name="history">History</string>
     <string name="empty_appointments_description">empty appointments</string>
-    <string name="empty_appointments_string">Create new appointments by clicking the button at the bottom right corner</string>
+    <string name="empty_appointments_string" translatable="false">Create new appointments by clicking the button at the bottom right corner</string>
     <string name="empty_appointments_history_image_description">Empty history appointments</string>
     <string name="empty_appointments_history_string">No past appointments yet</string>
     <string name="add_appointments">Add Appointment</string>
@@ -173,6 +173,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="all_group_channels">All Chats</string>
     <string name="connect_chat">Open Chat Module </string>
-    <string name="nav_header_subtitle">header_sub</string>
+    <string name="nav_header_subtitle" translatable="false">header_sub</string>
 
 </resources>
